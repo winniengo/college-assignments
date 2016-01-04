@@ -1,0 +1,120 @@
+CS65: Lab 07 - Mike Superdock, Winnie Ngo
+
+Cross-validation: 
+
+5. For all chunks of our 5-fold cross-validation, the most frequent sentiment
+is 'neutral'. It appears approximately the same number of times per fold: 756,
+749, 766, 917, and 784. This isn't surprising because we determined in Q4 that 
+after conflating labels the MFS is 'neutral' for the training data, which is 
+also used as the test data (in chunks) during cross-validation. 
+
+6. To determine how well the MFS baseline performs with cross-validation, we 
+used the MFS from the training data to label the test data for each fold, and 
+averaged the percentaged of correctly labeled instances. This returned the
+same percentage solved for in Q4, 48.18%. This follows our intuition because
+the sum of our testing sets is the training set used in the previous question. 
+
+7. Using bag of words feaures and our decision list classifier to classify
+each of the tweets with cross-validation, we accurately labeled 56.88% of
+the training set. This outperforms the MFS baseline by 8% and almost doubles
+the random baseline. Removing stopwords does not help, instead it minutely 
+decreases the performance. With 50 stopwords removed we acheieve an accuracy
+of 56.84%, 100 stopwords 56.35% and 150 stopwords 56.01%. Using case-folding 
+helps and increases accuracy to 57.34%. 
+
+8. By negating words after the word "not" and those ending with the conjunction
+"n't" before the next punctuation mark, we increased our performance to 
+57.19%. We then used the negation to include words after "no" and "never". The
+decision list classifier accurately labeled 57.16% of the data. This was a
+slight drop in performances.
+
+9. When we implemented the naive bayes classifier, it classified tweets with
+57.068% accuracy. This is only slightly better than our performance using the
+decision list classifier. Initialially we used Laplace smoothing, with an
+alpha value of 0.01, and we classified tweets with about 54% accuracy. When
+we switched to discounted smoothing method we classified tweets with much more
+accuracy, as evidenced by the percentage noted above.
+
+10. Below we list the results of our classifier using different modifications:
+
+(1) With n stopwords removed:
+
+ n - accuracy
+-------------
+25 - 56.894
+50 - 56.757
+75 - 56.384
+100 - 56.135
+125 - 55.898
+150 - 55.488
+
+(2) With case-folding:
+57.553
+
+(3) With negations after 'not' and 'n't':
+57.628
+
+(4) With case-folding and negations after 'not' and 'n't':
+57.989
+
+(5) With stopwords removed, case-folding, and negations after 'not' and 'n't':
+
+ n - accuracy
+-------------
+25 - 58.089
+50 - 58.014
+75 - 57.429
+100 - 56.931
+125 - 56.458
+150 - 56.172
+
+Using our 2nd Negation Strategy...
+
+(1) With negations after 'not', 'never', 'no', and 'n't':
+57.864
+
+(2) With case-folding and negations after 'not' and 'n't':
+58.126
+
+(3) With stopwords removed, case-folding, and negations after 'not',             'never', 'no', and 'n't':
+
+ n - accuracy
+-------------
+25 - 58.225
+50 - 58.275
+75 - 57.641
+100 - 57.267
+125 - 56.794
+150 - 56.471
+
+
+11. We found that tokenization did improve both our decision list and our
+naive bayes classifier, but by no more than 1%. The results of both are listed
+below.
+
+Decision List:
+57.479
+
+Naive Bayes:
+57.803
+
+Extra. We then used our most promising combination of features and tried them
+again on our decision list and naive bayes classifiers. For our decision list
+we used case-folding, negations, and tokenization. For our naive bayes
+classifier we used case-folding, negations, tokenization, and we removed 30
+stopwords. We chose 30 because it yielded the best results relative to 10
+other options we considered. The accuracy of both of these are listed below.
+
+Decision List:
+59.171
+
+Naive Bayes:
+59.196
+
+Ultimately, our best naive bayes classifier outperforms our best decision
+list classifier, but only slightly. Overall, this is a significant improvement
+relative to our MFS baseline. These classifiers outperform them by about 11%
+
+
+
+

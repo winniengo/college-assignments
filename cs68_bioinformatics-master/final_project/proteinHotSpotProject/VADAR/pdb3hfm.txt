@@ -1,0 +1,328 @@
+********************************************************************************
+*  Package...:                       VADAR (c)
+*  Version...:                 1.5, December 2007
+*  Location..:                 University of Alberta
+*                          Protein Engineering Network of
+*                              Centres of Excellence
+*  Input.....:                     /var/www/html/vadar/public_html/temp/1416707983/1416707983.txt_m0
+*  Date......:                 Sat Nov 22 18:59:46 2014
+********************************************************************************
+
+
+
+
+
+                     **********************************
+                     *           VADAR STATS          *
+                     **********************************
+                     ** Using atomic radii from Shrake **
+
+ (The expected values represent those numbers which would be expected
+  for highly refined Xray and NMR protein structures.
+  See the help pages for more information on expected values.)
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+| # Helix                      |     40   (  7%)     |         -           |
+| # Beta                       |    267   ( 47%)     |         -           |
+| # Coil                       |    251   ( 44%)     |         -           |
+|------------------------------|---------------------|---------------------|
+| # Turn                       |     20   (  3%)     |         -           |
+|------------------------------|---------------------|---------------------|
+
+                               HYDROGEN BONDS (hbonds)
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+|  Mean hbond distance         |      2.2 sd=0.4     |      2.2 sd=0.4     |
+|  Mean hbond energy           |     -1.7 sd=1.3     |     -2.0 sd=0.8     |
+|  # res with hbonds           |    363   ( 65%)     |    418   ( 75%)     |
+|------------------------------|---------------------|---------------------|
+
+Expected values obtained from Morris AL, MacArthur MW, Hutchinson EG and
+Thornton JM. Proteins. 1992 Apr;12(4):345-364.
+
+                                   DIHEDRAL ANGLES
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+|  Mean Helix Phi              |     -4.3 sd=15.4    |    -65.3 sd=11.9    |
+|  Mean Helix Psi              |     -3.5 sd=12.7    |    -39.4 sd=25.5    |
+|  # res with Gauche+ Chi      |    406   ( 79%)     |    279   ( 55%)     |
+|  # res with Gauche- Chi      |     43   (  8%)     |    101   ( 20%)     |
+|  # res with Trans Chi        |     59   ( 11%)     |    127   ( 25%)     |
+|  Mean Chi Gauche+            |    -61.2 sd=24.4    |    -66.7 sd=15.0    |
+|  Mean Chi Gauche-            |     67.0 sd=23.1    |     64.1 sd=15.7    |
+|  Mean Chi Trans              |    159.0 sd=14.5    |    168.6 sd=16.8    |
+|  Std. dev of chi pooled      |        20.86        |        15.70        |
+|  Mean Omega (|omega|>90)     |   -180.0 sd=0.7     |    180.0 sd=5.8     |
+|  # res with |omega|<90       |    348   ( 62%)     |         -           |
+|------------------------------|---------------------|---------------------|
+
+Expected values obtained from Morris AL, MacArthur MW, Hutchinson EG and
+Thornton JM.  Proteins. 1992 Apr;12(4):345-364.
+
+                             ACCESSIBLE SURFACE AREA (ASA)
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+|  Total ASA                   |   24426.1 Angs**2   |   19423.6 Angs**2   |
+|  ASA of backbone             |    3155.3 Angs**2   |         -           |
+|  ASA of sidechains           |   21270.8 Angs**2   |         -           |
+|  ASA of C                    |   13725.6 Angs**2   |         -           |
+|  ASA of N                    |    2117.0 Angs**2   |         -           |
+|  ASA of N+                   |    1322.4 Angs**2   |         -           |
+|  ASA of O                    |    6243.6 Angs**2   |         -           |
+|  ASA of O-                   |     908.9 Angs**2   |         -           |
+|  ASA of S                    |     108.5 Angs**2   |         -           |
+|  Exposed nonpolar ASA        |   13499.1 Angs**2   |   14899.9 Angs**2   |
+|  Exposed polar ASA           |    7028.4 Angs**2   |    4885.2 Angs**2   |
+|  Exposed charged ASA         |    3898.5 Angs**2   |    4641.0 Angs**2   |
+|  Side exposed nonpolar ASA   |   13548.8 Angs**2   |         -           |
+|  Side exposed polar ASA      |    3961.6 Angs**2   |         -           |
+|  Side exposed charged ASA    |    3760.4 Angs**2   |         -           |
+|  Fraction nonpolar ASA       |         0.55        |      0.61 sd=0.03   |
+|  Fraction polar ASA          |         0.29        |      0.20 sd=0.05   |
+|  Fraction charged ASA        |         0.16        |      0.19 sd=0.05   |
+|  Mean residue ASA            |     43.8 sd=41.1    |         -           |
+|  Mean frac ASA               |      0.3 sd=0.2     |         -           |
+|  % side ASA hydrophobic      |        18.58        |         -           |
+|------------------------------|---------------------|---------------------|
+
+Expected values obtained from Miller S, Janin J, Lesk AM and Chothia C.
+J Mol Biol. 1987 Aug 5;196(3):641-656..
+
+                             ACCESSIBLE SURFACE AREA FOR EXTENDED CHAIN
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+|  Extended nonpolar ASA       |   56746.5 Angs**2   |         -           |
+|  Extended polar ASA          |   30550.2 Angs**2   |         -           |
+|  Extended charged ASA        |    7998.6 Angs**2   |         -           |
+|  Extended side nonpolar ASA  |   56432.9 Angs**2   |         -           |
+|  Extended side polar ASA     |   10318.2 Angs**2   |         -           |
+|  Extended side charged ASA   |    7845.9 Angs**2   |         -           |
+|------------------------------|---------------------|---------------------|
+
+                                      VOLUME
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+|  Total volume (packing)      |   80349.9 Angs**3   |   74343.8 Angs**3   |
+|  Mean residue volume         |    144.0 sd=58.2    |    125.0 sd=40.0    |
+|  Mean frac volume            |      1.1 sd=0.4     |      1.0 sd=0.1     |
+|  Molecular weight            |     61116.23        |         -           |
+|------------------------------|---------------------|---------------------|
+
+Expected values obtained from Richards FM. Annu Rev Biophys Bioeng. 1977;
+6:151-176.
+
+
+                     ********************************
+                     * STEREO/PACKING QUALITY INDEX *
+                     ********************************
+
+                              ( 3 = best  )
+                              ( 0 = worst )
+                     ( * = indicates possible problem )
+
+
+PRBLM...:         *                       *        *  *           
+SEQUENCE:   DIVLTQSPAT LSVTPGNSVS LSCRASQSIG NNLHWYQQKS HESPRLLIKY      50
+TORSION.:   3333233333 2333233322 3323322303 1233333331 1332332331
+OMEGA...:   3333330333 3333333333 3333333333 3333333333 3333333333
+VDW.....:   3333333333 3333333333 3333333333 3233320130 3333333333
+------------------------------------------------------------------
+TOTAL...:   9999896999 8999899988 9989988969 7799986794 7998998997
+
+
+PRBLM...:   * * *** ** *  * **  *  * *  *    *  **      ** *  ****
+SEQUENCE:   ASQSISGIPS RFSGSGSGTD FTLSINSVET EDFGMYFCQQ SNSWPYTFGG      100
+TORSION.:   1233333323 3333332323 3333332233 3333333333 2333333333
+OMEGA...:   3333333333 3333333333 3333333333 3333333333 3330333333
+VDW.....:   1303000200 0230201330 3030330333 0130033323 0010330000
+------------------------------------------------------------------
+TOTAL...:   5869666856 6896866986 9696995899 6796699989 5673996666
+
+
+PRBLM...:     * *  *   **** *                      *  * * *       
+SEQUENCE:   GTKLEIKRAD AAPTVSIFPP SSEQLTSGGA SVVCFLNNFY PKDINVKWKI      150
+TORSION.:   3233333233 3322333232 3233333331 3333323222 3231333333
+OMEGA...:   3333333333 3333333333 3333333333 3333333330 3333333333
+VDW.....:   3303031032 0000302323 2333333333 3333330332 0303333333
+------------------------------------------------------------------
+TOTAL...:   9869697598 6655968888 8899999997 9999986884 6867999999
+
+
+PRBLM...:        * *    * **** ** **   * *                       *
+SEQUENCE:   DGSERQNGVL NSWTDQDSKD STYSMSSTLT LTKDEYERHN SYTCEATHKT      200
+TORSION.:   1331103332 3233323222 2321322333 3333332322 3332333333
+OMEGA...:   3333333333 3333333333 3333333333 3333333333 3333333333
+VDW.....:   3333332033 3030000300 0033313033 3333333333 3333333330
+------------------------------------------------------------------
+TOTAL...:   7997768698 9596656855 5687968699 9999998988 9998999996
+
+
+PRBLM...:   *             ******* ********** ********** **********
+SEQUENCE:   STSPIVKSFN RNECDVQLQE SGPSLVKPSQ TLSLTCSVTG DSITSDYWSW      250
+TORSION.:   2333333333 2312000000 0300000000 0000000003 0000000000
+OMEGA...:   3333333333 3330000000 0000000000 0000000000 0000000000
+VDW.....:   0333132333 3333030300 1330333333 3303330300 0330103333
+------------------------------------------------------------------
+TOTAL...:   5999798999 8975030300 1630333333 3303330303 0330103333
+
+
+PRBLM...:   ********** ********** ********** ********** **********
+SEQUENCE:   IRKFPGNRLE YMGYVSYSGS TYYNPSLKSR ISITRDTSKN QYYLDLNSVT      300
+TORSION.:   0000030000 0030000030 0000000000 0000000000 0000000000
+OMEGA...:   0000000000 0000000000 0000000000 0000000000 0000000000
+VDW.....:   3233023010 3333330300 3310033333 1330101132 3303333333
+------------------------------------------------------------------
+TOTAL...:   3233053010 3363330330 3310033333 1330101132 3303333333
+
+
+PRBLM...:   ********** ********** ********** ********** **********
+SEQUENCE:   TEDTATYYCA NWDGDYWGQG TLVTVSAAKT TPPSVYPLAP GSAAQTNSMV      350
+TORSION.:   0000000000 0003000303 0000000000 0000000000 3000000000
+OMEGA...:   0000000000 0000000000 0000000000 0000000000 0000000000
+VDW.....:   3333303233 0202030100 3031333133 3333333300 0303000003
+------------------------------------------------------------------
+TOTAL...:   3333303233 0205030403 3031333133 3333333300 3303000003
+
+
+PRBLM...:   ********** ********** ********** ********** **********
+SEQUENCE:   TLGCLVKGYF PEPVTVTWNS GSLSSGVHTF PAVLQSDLYT LSSSVTVPSS      400
+TORSION.:   0030000300 0000000000 3000030000 0000000000 0000000000
+OMEGA...:   0000000000 0000000000 0000000000 0000000000 0000000000
+VDW.....:   0333332333 3003030300 3300200033 3333333330 3033303000
+------------------------------------------------------------------
+TOTAL...:   0363332633 3003030300 6300230033 3333333330 3033303000
+
+
+PRBLM...:   ********** ********** ********** ********** **********
+SEQUENCE:   PRPSETVTCN VAHPASSTKV DKKIVPRDCK VFGRCELAAA MKRHGLDNYR      450
+TORSION.:   0000000000 0000000000 0000000000 0030000000 0000300000
+OMEGA...:   0000000000 0000000000 0000000000 0000000000 0000000000
+VDW.....:   2033033030 3033131323 2323332333 0330033300 3030330331
+------------------------------------------------------------------
+TOTAL...:   2033033030 3033131323 2323332333 0360033300 3030630331
+
+
+PRBLM...:   ********** ********** ********** ********** **********
+SEQUENCE:   GYSLGNWVCA AKFESNFNTQ ATNRNTDGST DYGILQINSR WWCNDGRTPG      500
+TORSION.:   3000300000 0000000000 0000000300 0030000000 0000030003
+OMEGA...:   0000000000 0000000000 0000000000 0000000000 0000000000
+VDW.....:   2003303332 3300003332 0300300333 0133303033 3330300030
+------------------------------------------------------------------
+TOTAL...:   5003603332 3300003332 0300300633 0163303033 3330330033
+
+
+PRBLM...:   ********** ********** ********** ********** **********
+SEQUENCE:   SRNLCNIPCS ALLSSDITAS VNCAKKIVSD GNGMNAWVAW RNRCKGTDVQ      550
+TORSION.:   0000000000 0000000000 0000000000 3030000000 0000030000
+OMEGA...:   0000000000 0000000000 0000000000 0000000000 0000000000
+VDW.....:   3303333333 3331003000 3033303333 3313033033 0003033300
+------------------------------------------------------------------
+TOTAL...:   3303333333 3331003000 3033303333 6343033033 0003063300
+
+
+PRBLM...:   ********
+SEQUENCE:   AWIRGCRL      558
+TORSION.:   00003000
+OMEGA...:   00000000
+VDW.....:   33000313
+--------------------
+TOTAL...:   33003313
+
+
+
+                     ***************************
+                     * 3D PROFILE QUALITY INDEX *
+                     ****************************
+
+                             ( 9 = best  )
+                             ( 0 = worst )
+                   ( * = indicates possible problem )
+
+
+PRBLM...:                                *** ********** ********* 
+SEQUENCE:   DIVLTQSPAT LSVTPGNSVS LSCRASQSIG NNLHWYQQKS HESPRLLIKY      50
+ENV.....:   7777777777 7777778888 7776665444 3332222322 1222323446
+
+PRBLM...:                                                   *  ***
+SEQUENCE:   ASQSISGIPS RFSGSGSGTD FTLSINSVET EDFGMYFCQQ SNSWPYTFGG      100
+ENV.....:   5665677767 7778988877 7787888877 7766666666 6755455444
+
+PRBLM...:                *                                        
+SEQUENCE:   GTKLEIKRAD AAPTVSIFPP SSEQLTSGGA SVVCFLNNFY PKDINVKWKI      150
+ENV.....:   5555556655 5545565677 7778887777 7777777777 6766655677
+
+PRBLM...:                                           *** **********
+SEQUENCE:   DGSERQNGVL NSWTDQDSKD STYSMSSTLT LTKDEYERHN SYTCEATHKT      200
+ENV.....:   6677766767 7777777777 7777777766 6566555444 4444443444
+
+PRBLM...:   ********** *******                                    
+SEQUENCE:   STSPIVKSFN RNECDVQLQE SGPSLVKPSQ TLSLTCSVTG DSITSDYWSW      250
+ENV.....:   4444344443 3344444555 6667777779 9999999999 9988887777
+
+PRBLM...:                       *                                 
+SEQUENCE:   IRKFPGNRLE YMGYVSYSGS TYYNPSLKSR ISITRDTSKN QYYLDLNSVT      300
+ENV.....:   6666666666 6566666664 6677777776 5566676677 7777777777
+
+PRBLM...:                                                         
+SEQUENCE:   TEDTATYYCA NWDGDYWGQG TLVTVSAAKT TPPSVYPLAP GSAAQTNSMV      350
+ENV.....:   7777777777 7777777777 7766776666 7777666656 6667776666
+
+PRBLM...:    ****                                                 
+SEQUENCE:   TLGCLVKGYF PEPVTVTWNS GSLSSGVHTF PAVLQSDLYT LSSSVTVPSS      400
+ENV.....:   5444456666 6667666677 7788777777 7777777788 7777777887
+
+PRBLM...:                      ** ***                             
+SEQUENCE:   PRPSETVTCN VAHPASSTKV DKKIVPRDCK VFGRCELAAA MKRHGLDNYR      450
+ENV.....:   7777777766 6556665544 4445555556 6777777777 7777767777
+
+PRBLM...:                                                         
+SEQUENCE:   GYSLGNWVCA AKFESNFNTQ ATNRNTDGST DYGILQINSR WWCNDGRTPG      500
+ENV.....:   7675666666 7777667777 6656767665 5665556656 5656666677
+
+PRBLM...:                                                         
+SEQUENCE:   SRNLCNIPCS ALLSSDITAS VNCAKKIVSD GNGMNAWVAW RNRCKGTDVQ      550
+ENV.....:   7777788888 7788777777 7766667666 6666677777 7777787777
+
+PRBLM...:           
+SEQUENCE:   AWIRGCRL      558
+ENV.....:   77777777
+
+
+|------------------------------|---------------------|---------------------|
+| Statistic                    | Observed            | Expected            |
+|------------------------------|---------------------|---------------------|
+|  Resolution                  |                     |         -           |
+|  R Value                     |                     |         -           |
+|  # res in phipsi core        |    178   ( 31%)     |    502   ( 90%)     |
+|  # res in phipsi allowed     |     47   (  8%)     |     39   (  7%)     |
+|  # res in phipsi generous    |     12   (  2%)     |      6   (  1%)     |
+|  # res in phipsi outside     |    321   ( 57%)     |      0   (  0%)     |
+|  # res in omega core         |    210   ( 37%)     |    536   ( 96%)     |
+|  # res in omega allowed      |      0   (  0%)     |     17   (  3%)     |
+|  # res in omega generous     |      0   (  0%)     |      0   (  0%)     |
+|  # res in omega outside      |    348   ( 62%)     |      6   (  1%)     |
+|  # packing defects           |        215          |         39          |
+|  Free energy of folding      |      -506.54        |      -536.40        |
+|  # res 95% buried            |        160          |        242          |
+|  # buried charges            |         17          |          0          |
+|------------------------------|---------------------|---------------------|
+
+Expected values obtained from 1. Morris AL, MacArthur MW, Hutchinson EG and
+Thornton JM. Proteins. 1992 Apr;12(4):345-364. 2. Chiche L., Gregoret LM,
+Cohen FE and Kollman PA. Proc Natl Acad Sci U S A. 1990 Apr;87(8):3240-3243 
+
+                                   ***************
+                                   *  END VADAR  *
+                                   ***************

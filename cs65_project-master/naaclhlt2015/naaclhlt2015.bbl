@@ -1,0 +1,42 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Alexandre~Denis and
+  Bellalem}2014]{Denis:2014:SemEval}
+Nadia~Bellalem Alexandre~Denis, Samuel Cruz-Lara and Lotfi Bellalem.
+\newblock 2014.
+\newblock Synalp-empathic: A valence shifting hybrid system for sentiment
+  analysis.
+\newblock pages 605--609, August.
+
+\bibitem[\protect\citename{Amir \bgroup et al.\egroup }2014]{Amir:2014:SemEval}
+Silvio Amir, Miguel~B. Almeida, Bruno Martins, João Filgueiras, and Mario~J.
+  Silva.
+\newblock 2014.
+\newblock Tugas: Exploiting unlabelled data for twitter sentiment analysis.
+\newblock pages 673--677, August.
+
+\bibitem[\protect\citename{Hemalatha \bgroup et al.\egroup }2012]{Hemalatha:12}
+I.~Hemalatha, G.P. Saradhi~Varma, and A.~Govardhan.
+\newblock 2012.
+\newblock Preprocessing the informal text for efficient sentiment analysis.
+\newblock {\em International Journal of Emerging Trends \& Technology in
+  Computer Science (IJETTCS)}, 1:58--61.
+
+\bibitem[\protect\citename{Miura \bgroup et al.\egroup
+  }2014]{Miura:2014:SemEval}
+Yasuhide Miura, Shigeyuki Sakaki, Keigo Hattori, and Tomoko Ohkuma.
+\newblock 2014.
+\newblock Teamx: A sentiment analyzer with enhanced lexicon mapping and
+  weighting scheme for unbalanced data.
+\newblock pages 628--632, August.
+
+\bibitem[\protect\citename{Rosenthal \bgroup et al.\egroup
+  }2014]{rosenthal-EtAl:2014:SemEval}
+Sara Rosenthal, Alan Ritter, Preslav Nakov, and Veselin Stoyanov.
+\newblock 2014.
+\newblock Semeval-2014 task 9: Sentiment analysis in twitter.
+\newblock In {\em Proceedings of the 8th International Workshop on Semantic
+  Evaluation (SemEval 2014)}, pages 73--80, Dublin, Ireland, August.
+  Association for Computational Linguistics and Dublin City University.
+
+\end{thebibliography}

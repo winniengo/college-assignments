@@ -1,0 +1,24 @@
+CS 68 Lab 1 - Pairwise Sequence Alignment
+
+Name 1: Eric Oh 
+Name 2: Winnie Ngo
+
+userId1: eoh1
+userId2: wngo1
+
+----------------------
+Lab Questionnaire - consider the lab as a whole, including problem 
+set and programming assignment
+
+Approximately, how many hours did you take to complete this lab 
+(provide your answer as a single integer on the line below).
+15
+
+How difficult did you find this lab? 
+(1-5, with 5 being very difficult and 1 being very easy)
+3
+
+Describe the biggest challenge you faced on this lab:
+It's a tie between constructing the aligned sequences using the score Matrix ie.
+when to add a gap, and how to index along the original sequences, and printing out
+the results and indexes in 50 char lines

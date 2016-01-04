@@ -1,0 +1,150 @@
+Question 12.
+
+Yes, our decision list outperforms the MFS baseline. We created the decision
+lists using collocations and bag-of-words methods, where the bag-of-words
+constant k was incremented from 0 and 9. Our results were as follow:
+
+k  accuracy
+-  --------
+0    63.5
+1    63.7
+2    64.0
+3    63.5
+4    63.2
+5    62.6
+6    62.2
+7    61.0
+8    61.2
+9    61.8
+
+k = 2 yields the best results. Our decision list predicts senses with 64.0%
+accuracy. The MFS baseline predicts them with 55.2% accuracy. This is an 8.8%
+improvement.
+
+(Note: We will continue discussing our results by using values yielded from
+using k = 2, the most 'accurate' bag-of-words constant)
+
+Question 13.
+
+Q: What is problematic about some of the rules you have generated?
+
+Some of the bag-of-words features that we find in 'organization.n' are very
+common words that probably don't actually tell us too much about the correct
+sense of the word. For example, features like 'the', 'these', '.', etc. are
+all found at the top of our 'organization.n' decision tree, and are all labeled
+with the sense 'organization%1:14:00:00'. From our results, we suspect that
+these features appear often within k words of our head word regardless of
+what the corresponding sense is. Since 'organization%1:14:00:00' is the most
+common sense for the word 'organization.n' by a significant margin, the
+corresponding scores for the aforementioned words ('the', 'these', '.', etc.)
+are going to be very high. This causes a problem because these common words
+actually don't really help distinguish between senses.
+
+Another issue with the rules stems from the fact that the majority of the
+features used to create our decision tree are found using the bag-of-words
+method. Decision trees are weighted more heavily with bag-of-words features
+than collocation features. Thus more features will be labelled using features
+from the bag-of-words method, which are sometimes less effective in
+distinguishing senses than those derived from the collocation method (as
+demonstrated in the example above) even in cases where they have similar
+scores.
+
+The last problem is that the decision list contains scores with negatives
+values. This suggests that some features in our decision tree are not
+especially accurate predictors of our set. In such cases, it may sometimes
+be more effective to simply default to the most frequent sense for that lexelt.
+
+Q: Does removing stop words hurt or help your performance?
+
+We ran three different tests, in which the 10, 20, and 30 most common words
+were excluded from decision lists, respectively. These stop words were
+identified by looking at all of the words in our training set and sorting
+them by thteir counts.
+
+We found that removing these stop words actually decreases our systems
+accuracy. For our 3 tests we obtained the following results using
+k = 2:
+
+stop words      accuracy
+----------      --------
+    10            62.0
+    20            61.4
+    30            60.6
+
+Q: Why might removing some of the most frequent words might be a bad idea?
+
+Even if the word is a very common word, it may still be predominately
+related to one particular feature.
+
+For example, 'organizations .' was our highest scoring feature. However, this
+was removed because '.' was among the most common words. Nevertheless, we can
+see why this collocation would be useful to determine the labels of our lists.
+The word 'organizations' may appear at the end of the sentence often, and it
+may have the same unique sense for each of these instances. However, since
+periods very commonly appear at the end of sentences we are forced to remove
+this collocation from our list of features.
+
+Q: Does case-folding always make sense to do? Does this help or hurt
+performance.
+
+No, case-folding does not always make sense to do. For example, one of our most common features without case-folding is 'The', using the bag of words method.
+However, when we use case-folding and 'The' is converted to 'the', it is no
+longer as useful of a feature for sense prediction.
+
+Using case-folding, we repeated the same measurements that we used without
+case-folding. We varied the bag of words constant k from 0 to 9. The result
+of these measurements were as follows:
+
+k  accuracy
+-  --------
+0    63.1
+1    63.5
+2    63.7
+3    63.4
+4    62.8
+5    62.7
+6    62.1
+7    61.4
+8    61.6
+9    62.0
+
+Overall, case-folding decreases performance, but only slightly.
+
+Q: What is your new accuracy now that you have added support for stopwords?
+Does your decision list now/still outperform the MFS baseline?
+
+We found that our added support for stopwords actually decreased accuracy.
+This was shown in the answers above. When we set k=2 and removed the 10
+most common words (the stopwords) we found that the accuracy decreased to about
+62%. This still outperforms the MFS baseline, which predicted results with
+about 55% accuracy.
+
+Question 4:
+
+We found that the more rules we allowed, the more accurate our decision
+tree was at making predictions. Below are our results as we increased
+the rule cutoff and where k = 2:
+
+cutoff  accuracy
+-----   --------
+  0       55.2
+  25      59.2
+  50      59.7
+  100     60.6
+  150     60.5
+
+Below are ourresults where k = 2 and we change our score cutoff:
+
+ cutoff  accuracy
+ ------  -------
+ -0.5     63.7
+  0       63.5
+  0.5     61.8
+  1.0     61.0
+
+Generally, these results reveal that the more rules we use the better. They
+suggeus that gradually, when we use fewer rules we approach the MFS
+baseline. When we use the most rules provided to us, we maximize our accuracy.
+This suggests that our rules, even those that have lower scores, are generally
+better predictors than the MFS method.
+

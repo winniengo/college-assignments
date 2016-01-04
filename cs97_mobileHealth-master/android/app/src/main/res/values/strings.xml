@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ding Dong: Condom</string>
+    <string name="request_condom_text">To order a condom, fill out your delivery info\n and click the button!</string>
+    <string name="request_details">Room deliveries:\nCondoms will be put under the door\n\nLounge deliveries:\nCondom will be put in a designated drop box in your lounge</string>
+    <string name="request_condom_button_text">I\'m Feeling Lucky!</string>
+    <string name="request_condom_dorm_name">Dorm Name:</string>
+    <string name="request_condom_dorm_room">Dorm Room:</string>
+    <string name="request_condom_delivery_type">Where do you want the condom delivered?</string>
+    <string name="request_condom_delivery_type_to_room">To My Room</string>
+    <string name="request_condom_delivery_type_to_lounge">To My Lounge</string>
+    <string name="request_condom_delivery_type_to_dorm">To My Dorm</string>
+    <string-array name="dorms_array">
+        <item>AP</item>
+        <item>DK</item>
+        <item>Kohlberg</item>
+        <item>Lodges</item>
+        <item>Science Center</item>
+        <item>Wharton AB</item>
+        <item>Wharton CD</item>
+        <item>Wharton EF</item>
+        <item>Willets North</item>
+        <item>Willets South</item>
+        <item>Worth I</item>
+        <item>Worth J</item>
+        <item>Worth K</item>
+        <item>Worth L</item>
+        <item>Worth M</item>
+        <item>Worth N</item>
+    </string-array>
+    <string name="register_about">
+        Thanks for downloading Ding Dong: Condom!\nYou now have access to our free, \non-demand
+        condom delivery service.
+    </string>
+    <string name="project_purpose">
+        This app is for our Computer Science senior project. This year\'s topic is Mobile Health,
+        so we built something relevant to many of us: sex in college. Our goal is to improve
+        sexual health on campus by making condom access easier.
+
+        \n\nxo Winnie, Awjin, Daniel
+    </string>
+    <string name="service_how_to">
+        THE PREP
+        \nRegister with the provided token.
+        \nYou\'ll get a notification when we open for business.
+
+        \n\nTHE DELIVERY
+        \n\tYou provide a room number or a lounge.
+        \n\tWe drop off an envelope of 3 condoms within 15 min.
+
+        \n\nKEEP IN MIND
+        \n\tLimit 1 order per night.
+        \n\tWe don\'t store any personally identifiable info, so all requests are anonymous!
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="survey_title">Morning After Survey</string>
+    <string name="menu_service">
+        THE PREP
+        \nYou\'ll get a notification when we open for business.
+
+        \n\nTHE DELIVERY
+        \n\tYou provide a room number or a lounge.
+        \n\tWe drop off an envelope of 3 condoms within 15 min.
+
+        \n\nKEEP IN MIND
+        \n\tLimit 1 order per night.
+        \n\tWe don\'t store any personally identifiable info, so all requests are anonymous!
+    </string>
+    <string name="menu_about_us"></string>
+    <string name="survey_explanation">
+        Thank you for using our service!
+
+        \n\nFilling out the survey below will help us better understand how
+        useful this service was to you and whether it\'s worth developing further.
+
+        \n\nAs always, your
+        responses are completely anonymous and will only be used for evaluation purposes.
+
+        \n\nCheers,\nAwjin, Winnie, and Daniel
+    </string>
+    <string name="open_for_business_text">We are currently not delivering.</string>
+    <string name="condom_guide_link"></string>
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestListOrderNumber"
+        android:textStyle="bold"
+        android:paddingRight="4dp"
+        android:textSize="15sp"
+        android:paddingLeft="4dp"
+        android:text="Condom Request #"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestListDestination"
+        android:text="Destination"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/requestListOrderNumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestListDateRequested"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/requestListDestination"
+        android:text="Date Requested"/>
+
+    <CheckBox
+        android:id="@+id/requestListAccepted"
+        android:text="Accepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:enabled="false"
+        android:focusable="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="35dp"/>
+
+    <CheckBox
+        android:id="@+id/requestListDelivered"
+        android:text="Delivered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:enabled="false"
+        android:focusable="false"
+        android:layout_below="@+id/requestListAccepted"
+        android:layout_alignRight="@+id/requestListAccepted"
+        android:layout_alignEnd="@+id/requestListAccepted"/>
+
+    <CheckBox
+        android:id="@+id/requestListFailed"
+        android:text="Failed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:enabled="false"
+        android:focusable="false"
+        android:layout_below="@+id/requestListDelivered"
+        android:layout_alignLeft="@+id/requestListDelivered"
+        android:layout_alignStart="@+id/requestListDelivered"/>
+
+</RelativeLayout>

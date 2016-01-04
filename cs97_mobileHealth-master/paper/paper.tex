@@ -1,0 +1,195 @@
+\documentclass{acm_proc_article-sp}
+\usepackage{enumerate}
+
+\begin{document}
+
+\title{DingDong: Condom! Using Mobile Devices to Facilitate Preventative Sexual Health}
+\numberofauthors{3}
+\author{
+\alignauthor
+Awjin Ahn\\
+  \vspace{0.567cm}
+  \affaddr{Swarthmore College}\\
+  \email{aahn1@swarthmore.edu}
+\alignauthor
+Daniel-Elia Feist-Alexandrov\\
+  \vspace{0.2cm}
+  \affaddr{Swarthmore College}\\
+  \email{aahn1@swarthmore.edu}
+\alignauthor
+Winnie Ngo\\
+  \vspace{0.567cm}
+  \affaddr{Swarthmore College}\\
+  \email{aahn1@swarthmore.edu}
+}
+\maketitle
+
+
+\begin{abstract}
+\smallskip
+\textbf{Background:} Hook-up culture on college campuses is steadily gaining more traction and media attention.$^1$ On one hand, the culture celebrates the unique environment for sexual exploration and encounters provided by college campuses. On the other hand, the risks of unprotected sex, such as contracting an STI or having an unwanted pregnancy can be devastating for the college age group. This is a problem that can benefit immensley from the field of mobile health. We propose a mobile sexual health app that allows students to anonymously order a condom delivered to their dorm to facilitate safe sex.
+
+\textbf{Objective:} To launch an app that provides a just-in-time condom delivery service and displays brief, digestible sexual health information. The backend is open-source and scalable to any college campus that wishes to deploy it.
+
+\textbf{Methods:} We conducted a randomized survey of 217 students to identify the barriers to having safe sex. We built a user app, an app for the condom deliverer, and a scalable Node.js backend to handle all requests and announcements. We will trial this app on Swarthmore College's campus on a few weekend nights, when demand is expected to be high.
+
+\textbf{Results:} \textit{We have not yet run our trials yet. The test trials will occur on Dec 6, 7, 9.}
+
+\textbf{Conclusions:} \textit{Again, without any results we cannot assess the efficacy of the system.} The end goal is to have this system easily deployable by any college to bolster the sexual health on their campus. At Swarthmore College, we hope to work more closely with the Sexual Health Counseling Program and the campus Health Center to provide a system specifically tailored to the campus's needs.
+\end{abstract}
+
+
+\section{Introduction}
+\smallskip
+Contracting a sexually transmitted disease or having an unwanted pregnancy can change the trajectory of one's life. This is especially true for members of the college-aged population, who are in critical positions to advance their education and careers and have readily available access to sexual encounters. One of the most effective preventative methods is using a condom during sex, yet a surprisingly large amount of these young adults fail to do so---in a survey conducted by the CDC, 40\% of young adults did not use a condom the last time they had sex.$^2$ The main reasons we have identified for this behavior are 1) being unprepared with no form of protection on hand, 2) inadequate sexual health education (e.g. how to properly use a condom), and 3) fear/stigma of buying condoms.
+
+To help encourage and increase the use of condoms, we present a mobile phone application-based system that powers a 'just-in-time' condom delivery service for college campuses. This system will 1) allow students to quickly and discreetly request a condom delivery to their rooms, 2) provide brief digests about sexual health topics such as proper condom usage and Plan B, and 3) display relevant contact information, such as that of the college's health center, sexual health counselors, etc. By significantly decreasing the barriers to acquiring a condom, we hope to increase the practice of safe sex.
+
+In the architecture section, we detail the logistical aspects of deploying such a service on the Swarthmore College campus. The backend is powered by Node.js and MongoDB, and the user will be provided with an Android app.
+
+In the evaluation section, we present data from trial runs of this service during two weekends at Swarthmore during the Fall 2014 semester. In order to evaluate the effectiveness of our system, we will use four metrics: 1) surveys of the student body of the need and viability of the service, 2) raw number of condoms delivered, 3) amount of inquiries the College Health Center receives about urgent sexual health matters before and after the service is deployed, and 4) post-service user feedback. We hypothesize that users will largely ignore surveys if they are prompted immediately after the condom is delivered. We aim, therefore, to collect data at a later time to ensure maximum feedback, in the form of ``morning-after'' surveys.
+
+
+\section{Related Works}
+\smallskip
+Our motives for creating this system stem from problems that are specific and unique to the college population. Therefore, research in this area has not been done explicitly, but related research is tabulated below:
+\begin{enumerate}
+\item The growth of hookup culture on college campuses$^3$
+
+Hookup culture on college campuses has been againing increased media exposure, coverage, and general awareness. Relationships outside of relationships are becoming more common and less stigmatized. However, this leads to problems of not knowing what STIs potential partners might have, and necessitates the practice of safe sex.
+
+\item Effectiveness of condoms in preventing many types of STIs$^4$
+
+A NIH study conducted in 2000 determined conclusively that condom usage decreases the spread of HIV and gonorrhea. The authors of this newer study reexamine the NIH study in order to examine if condoms are useful for preventing a larger variety of STIs. They conclude that condoms can, in fact, help protect against a larger range, including chlamydia, herpes simplex virus type 2, syphilis, and HPV. In light of this research, the correct usage of condoms becomes even more compelling.
+
+\item The prevalence of incorrect confom usage$^5$
+
+A condom is rendered useless if it is not used corrected. Common errors, determined from randomized surveys, led to failed usage. Some of the response are shown below:
+\begin{enumerate}
+\item Using sharp instruments to open condom packages (11\%)
+\item Storing condoms in wallets (19\%)
+\item Not using a new condom when switching from one form of sex to another (83\%)
+
+A host of other problems, such as only using a condom after sex had begun, or removing the condom prematurely, were common in responses (38 and 14 percent, respectively). This clearly shows that proper education of condom use is necessary, even though it seems like a simple process. To that end, our app strives to include relevant and visually appealing information such that the user would be likely to read it. This would also improve the success rate of condom usage.
+\end{enumerate}
+
+\item Effectiveness of Just-in-time (JIT) services$^6$
+
+This paper analyzes how JIT services can benefit different types of fields. The main arguments are for client satisfaction, timeliness of delivery, agile backend services, and the general conservation of time and resources. All of these benefits are perfectly suited to our usage case. To that end, we apply the JIT paradigms in the design of our app.
+
+\end{enumerate}
+
+\section{User-Driven Design}
+\smallskip
+We had a general idea of what we wanted our app to look like at the start of our project. It needed to contain features that would allow users to register their mobile devices with the service, specify their delivery options, and place orders.
+
+In order to gain a better understanding of what users would want from such a service, we published a campus-wide survey. Since our trial was set to take place at Swarthmore College, we were very interested in what the students had to say, and tried to shape our design objectives to best fit their needs. We also made the assumption that Swarthmore students are a reasonable representation of the avereage college student.
+
+\subsection{Survey of the Student Body}
+Our survey asked a number of questions. We wanted an idea of how needed this service would be campus and how it would be received by students. Our survey asked users to rank how accessible condoms were for them in terms of price, location and availability. It also asked users if they had been in a situation where they needed a condom and didn't have one in the last year. To guide our service and app design, we also ask users how long they would be willing to wait for a condom to be delivered and what their preferred delivery method would be. In order to address to issue of protecting user anonymity, we wanted to make deliveries available to designated drop off boxes located in dorm lounges or outside buildings. Making deliveries directly to a user's dorm room would create an anonymity issue because identifying information like names are usually displayed on room doors.  Lastly, we gave users an opportunity to share any thoughts they had on the project. 
+
+Approximately 15\% of Swarthmore's study body took our survey and we received 217 responses. 
+
+We asked users to rate accessibility on a scale of 1 to 7, (1 being not accessible and 7 being readily accessible and received a wide and mostly even distribution of answers not including 1. 23\% said condoms were readily accessible, while 19\% and 16\% ranked condom availability as a 5 and 3 respectively. 42\% said that they had needed a condom and didn't have one in the past year. 52\% said they would most prefer condoms delivered directly to their rooms, while 35\% prefered deliveries to their lounges. 44\% of uses said that they would be willing to wait 5-15 minutes for their delivery and 33\% said 10-20 minutes. Finally, 60\% said that they would use our app and service if it existed on campus. 
+
+Overall, potential user response correlated well to our initial design objectives. There seemed to be a reasonable need at Swarthmore College for our service given that almost half of the 217 students who took our survey have been in situations where they've needed a condom and didn't have one in the recent. Issues concerning anonymity proved valid so we decided to make deliveries available to dorm lounges and dorm rooms. Overall, feedback was positive and encouraging. 
+
+From our survey responses, we finalized that our service would involve users providing information on their delivery destination via a simple form and ordering their condoms via a one-click app interface. Given the time requested, delivery destination, and type, deliverers would respond to new orders and delivery an envelope containing three condoms within 15 minutes of accepting the order. 
+
+
+\section{Architecture}
+\smallskip
+The core idea of our project was to promote sexual health by making condoms and information about their use more accessible. Making this access convenient and anonymous, we theorized, would in turn increase propensity to use this service and thus ensure that people exercised safe sex. We found this paradigm, reducing friction to drive usage, very clear in industry: mobile apps like Uber and Lyft cut the process of transportation down to a simple address input and single button-click. Then, the client simply waits for a calculated amount of time for the car to pick them up. It is this convenience that we wanted to duplicate to drive adoption of safe sex practices. Thus, we oriented our design process on these established models in industry. Another important design consideration was scalability, since we want to develop this in a way that we can deploy this at schools both small and large.
+
+\subsection{Backend}
+\smallskip
+One of the most important criteria in making architectural design choices in a software development environment is accounting for expected and unexpected growth. For instance, Google would not have been able to sustain its growth and success if the founders and chief infrastructure architects hadn't made deliberate decisions to invest in an architecture that could scale to any kind of traffic. Adopting this paradigm, we chose to use Node.js [http://nodejs.org/] as a framework for our application’s backend. (It is no coincidence that Uber uses it as part of its backend stack as well [http://builtwith.com/uber.com].)
+
+This necessitated us to adapt our coding style, as Node.js is a language driven by asynchronous processing. For instance, instead of using a for-loop to perform operations, we use a map function that does it all asynchronously and in parallel. This is very powerful for our purposes as it allows for a non-blocking I/O model, but its nondeterministic execution sequence makes debugging difficult.
+
+In addition to the bare Node.js deployment we used various modules (see Appendix I for list) to make the development process easier and provide crucial functionality. The most important to mention is express.js [http://expressjs.com/] to provide a scaffold.
+
+As a database, we decided to use a NoSQL solution and thus opted for the very popular MongoDB, since our data was not relational by nature. Using a NoSQL database like MongoDB also allows for ease of deployment because it allows changing models on the fly and provides strong scalability.
+
+The initial goal was to build a REST API on top of this, but due to limited knowledge of Node.js and Android, we ended up building an API that consists of POSTs. This can be refactored fairly easily with the knowledge we have to be truly RESTful. At its heart it does carry these principles. We implemented the API and models to allow for future expansion of functionality (e.g. adding location to delivery requests).
+
+We also implemented a GCM powered broadcast with the ‘node-schedule’ and ‘node-gcm’ packages. The former allows us to execute JS functions on a schedule without using Cron itself. Any notifications are then sent through Google Cloud Messaging servers. We have a simple python script that lets us send out ‘broadcasts’ to all users, if we need to make announcements or adjustments on the fly. This type of communication is useful for a demographic that is always connected to the internet.
+
+\subsection{Android Applications}
+\smallskip
+We implemented two apps: 1) DingDong: Condom!, for the user, and 2) DingDong: Deliverer for the person delivering the condoms.
+
+\subsubsection{DingDong Client}
+\smallskip
+This app was built on top the Android Jelly Bean SDK. It handles most things by firing off requests to the node backend (like checking for status, registering and so on). We store no real personally identifyiable information (PII)---only a randomly generated device identifier and passphrase, and dorm name and room. The app contains a Google Cloud Messaging (GCM) component, which handles notifications from the backend and delivers usage surveys to the user. The app also comes with pertinent sexual health content, such as a graphical guide on how to use a condom.
+
+\subsubsection{DingDong Deliverer}
+\smallskip
+The deliverer app has been designed to optimize the just-in-time delivery paradigm. A simple list fragment powered the overview of all the different open orders. This app allows the deliverer to view the location of delivery, and then asks the deliverer to accept the order with a delivery ETA. This triggers a progress screen in the client app that shows the real-time progress. Once delivered, the deliverer can mark this in the app. This changes the status of the order in the backend. Once the client app picks up on that change, it notifies the user that the condom is delivered. The app then shows the user a guid on proper condom use. 
+
+
+\section{Evaluation}
+\smallskip
+\subsection{On-campus Trials}
+\smallskip
+We are most interested in learning if providing emergency condom delivery service improves sexual health and practices on college campuses. 
+
+We will collect data from the condom orders made and from responses to our 'morning-after' survey. This survey will be pushed to users who placed an order the night before at noon of the next day. It will ask users the following:
+\begin{enumerate}
+\item Did they use any of the condoms delivered?
+\item How would they rate their waiting time?
+\item How would they rate the usability and desing of the app's interface?
+\item Would they use the app again in the future?
+\end{enumerate}
+
+To test our app and survey, we conducted nightly trials on the Swarthmore College campus. To optimize our results, we chose nights of parties when we predicted condom usage would be at its highest. We chose the last Saturday and Tuesday of the semester. We made our service available from 8:00 pm to 2:00 am of those nights. Users were sent notifications of opening and closing times. 
+
+\subsection{Challenges and Constraints}
+\smallskip
+We faced several constraints which limited our evaluation of our system. 
+
+First, we had very limited access to dorm buildings on campus. All dorms require a key and the propping of doors is strictly forbidden. Though there are master keys which open all doors on campus, the administration had issues lending them out to us for our testing purposes. Thus, users were only able to order condoms to the campus building we could readily open, which consisted of academic buildings and dorms for which we procured a resident’s key. In addition, due to weather conditions and our delivery terms we had to exclude the non-central off-campus dorms. 
+
+Second, in our limited time we were only able to build an Android app. Lacking a web interface and an iOS app, we were only able to target students with Android phones. 
+
+Lastly, due to deadlines we were only able to run trials on two nights of the semester. 
+
+
+\section{Conclusion and Future Work}
+\smallskip
+In this paper we have presented “DingDong: Condom!”, a condom delivery application and service that was trialed at Swarthmore College during the fall Semester of 2014. Our intention with the application was to provide just-in-time condom delivery and sexual health information to drive adoption of safe sex practices and in turn reduce the incidence of sexually transmitted diseases and unwanted side effects (such as the need to use ``Plan B''). In the development and testing of our application and service, we faced time constraints constraints that rendered us unable to implement the full feature set that we had planned. We also found that Swarthmore College was not an optimal location for this evaluation, mostly due to its small size, atypically sex-positive practices and policy preventing us from covering all residence halls with our service. These factors strongly reduced the reach and effectiveness of the application.
+
+Regardless of the challenges, we hope that our system will be adopted by other college campuses. Future work is needed to bundle our apps, backend frameworks, and lessons learned into a single package that will be rapidly deployable and easily run by organizations at other colleges and universities. By providing a service on modern mobile platforms, providing on-demand convenience, and increasing accessibility and lowering the hurdles for procurement, we capture the spirit of mobile health, and hope to increase the practice of safe sex.
+
+\section{Appendix I}
+\smallskip
+"express":"~4.0.0"\\
+"mongoose":"~3.8.8"\\
+"csprng":"~0.1.1"\\
+"connect":"~2.14.4"\\
+"nodemailer":"~0.6.3"\\
+"shortid":"~2.1.3"\\
+"node-gcm":"~0.9.12"\\
+"node-schedule":"~0.1.13"\\
+"bluebird":"~2.3.11"
+
+\bibliographystyle{abbrv}
+\bibliography{final_report}
+% sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+% ACM needs 'a single self-contained file'!
+
+\section{References}
+\smallskip
+\begin{enumerate}[$^1$]
+\item CDC. Youth risk behavior surveillance—United States, 2011. MMWR 2012;61(SS-4).
+\item Dye, Lee. "Want to Have a Hookup? What Does It Mean?" ABC News 21 Sept. 2011: n. pag.
+\item Olson, Amanda J. "Talk about "Hooking Up": How College Students' Accounts of "Hooking Up" in Social Networks Influences Engaging in Risky Sexual Behavior." (2005): n. pag. Web.
+\item Holmes, King K., Ruth Levine, and Marcia Weaver. "Effectiveness of Condoms in Preventing Sexually Transmitted Infections." Bulletin of the World Health Organization 82.6 (2004): 454-61. Web.
+\item Crosby, Richard, Stephanie Sanders, William L. Yarber, and Cynthia A. Graham. "Condom-use Errors and Problems: A Neglected Aspect of Studies Assessing Condom Effectiveness." American Journal of Preventive Medicine 24.4 (2003): 367-70. Web.
+\item Younies, Hassan, Belal Barheim, and C. Ed Hsu. "A Review of the Adoption Just-In-Time Method and Its Effect on Efficiency." Public Administration and Management: An Interactive Journal 12.2 (2007): 25-46. Web.
+\end{enumerate}
+
+\end{document}

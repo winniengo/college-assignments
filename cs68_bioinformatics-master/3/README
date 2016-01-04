@@ -1,0 +1,46 @@
+CS 68 Lab 3 - Phylogenetic Tree Inference
+
+Name 1: Eric Oh  
+Name 2: Winnie Ngo
+
+userId1: eoh1   
+userId2: wngo1
+
+----------------------
+Analysis Questions for Neighbor Joining:
+
+1) The two species that were joined first by the neighbor-joining algorithm were Gibbon and Orangutuan. No, these two species are not the closest pair according to the distance matrix. 
+
+2) This pair was chosen first because they were the closest species that were also far away from others. Although the original distance matrix did not represent this, once we account for the distance from other species using R and M, these were the species chosen. 
+
+3) Virus strain 9 is likely the outgroup. 
+
+4)           ------------------
+             |                |
+         ----15----           |
+         |        |           9
+       --14--  --16--
+       |    |  |    |
+     --13-- 1  8  --11--
+     |    |       |    |
+   --12-- 2       7  --10--
+   |    |            |    |
+   4    3            6    5
+
+5) It seems that the two variants of HIV developed independently from two different simian group. They seem to be clustered separately, with different simian groups also clustered near them.  
+
+
+----------------------
+Lab Questionnaire - consider the lab as a whole, including both
+programs and the analysis
+
+Approximately, how many hours did you take to complete this lab 
+(provide your answer as a single integer on the line below).
+25
+
+How difficult did you find this lab? 
+(1-5, with 5 being very difficult and 1 being very easy)
+3
+
+Describe the biggest challenge you faced on this lab:
+figuring out how to write recursive functions

@@ -1,0 +1,47 @@
+CS 68 Lab 0 - Central Dogma
+
+Name 1: Eric Oh 
+Name 2: Winnie Ngo
+
+userId1: eoh1
+userId2: wngo1
+
+----------------------
+Answer Part 1 Questions here:
+
+GenBank:
+  1. 238 amino acids 
+     966 nucleotides
+  2. 3
+  3. Aequorea victoria
+  4. 25, 224
+     
+UniProt:
+  1. PF01353
+  2. Biological process, Inouye S.
+  3. 65-65
+
+PDB:
+  1. Structure validation expresses how reliabile a 3D  atomic model is relative
+  to the measurements, experimental data, and known physical and chemical 
+  properties  used in the experiments used to discover the model. Having a known
+  valid structure is important when explaining their biological functions. 
+  
+  Clashscore: Score derived from the number of pairs of atoms in the model that
+  are unusually close to each other. 
+  2. Nitrogen, Glycine, (24.318, 11.495, 49.015)
+  3. 3/10-helix
+
+-------------------------
+Lab Questionnaire 
+
+Approximately, how many hours did you take to complete this lab 
+(provide your answer as a single integer on the line below).
+7
+
+How difficult did you find this lab? 
+(1-5, with 5 being very difficult and 1 being very easy)
+1.5
+
+Describe the biggest challenge you faced on this lab:
+Refamiliarizing ourselves to python syntax

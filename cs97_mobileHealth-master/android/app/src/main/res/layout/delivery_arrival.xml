@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#5ba4e5"
+            android:scrollbars="none" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+
+                  tools:context=".DeliveryArrival" >
+
+        <ImageView
+            android:id="@+id/app_name_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-100dp"
+            android:layout_marginBottom="-125dp"
+            android:src="@drawable/arrival"/>
+
+        <TextView
+            android:id="@+id/text_order_number_arrival"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:paddingBottom="25dp"
+            android:textColor="#ffffff"
+            android:text="Order #"/>
+
+        <!--<Button-->
+            <!--android:id="@+id/restartButton"-->
+            <!--android:layout_width="220dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="@drawable/btn_green"-->
+            <!--android:text="Good luck!"-->
+            <!--android:textColor="#ffffff" />-->
+
+        <Button
+            android:id="@+id/guideButton"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_green"
+            android:layout_margin="10dp"
+            android:text="Condom Guide"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+</ScrollView>

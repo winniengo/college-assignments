@@ -1,0 +1,287 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{cs65f14}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{url}
+
+\setlength\titlebox{6.5cm}    % Expanding the titlebox
+
+\title{An Analysis of Morpheme Segementation Algorithms}
+
+\author{Michael Superdock\\
+  Swarthmore College\\
+  Swarthmore, PA\\
+  {\tt msuperd1@swarthmore.edu}
+  \And
+  Winnie Ngo \\
+  Swarthmore College\\
+  Swarthmore, PA\\
+  {\tt wngo1@swarthmore.edu}
+}
+
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  In this paper, we present an analysis of thirteen different algorithms used for unsupervised segmentation of words into morpheme-like units using successor variety, predecessor variety, and entropy information. Using different word sets and parameters, we compare our algorithm implementations and results to those developed by Mararet A. Hafer and Stephen F. Weiss in \textit{Word Segmentation by Letter Successor Varieties}. Our results and algorithms' performances are evaluated using the segmentations given by two standards: the 2010 Morpho Challenge standard and our own standard. Based on our findings, we propose and implement five additional algorithms which each improved overall efficiency. The most accurate segmentation method resulted in a precision of 55.5\%, a recall of 77.9\%, and a F-measure of 64.7 when compared to the Morpho Challenge standard
+\end{abstract}
+
+\section{Introduction}
+According to linguistic theory, morphemes are the smallest meaning-bearing units of language as well as the smallest units of syntax. Any word can be expressed as as combination of morphemes. For instance, in English the word `unbreakable' has three morphemes: `un-', `break', and `-able'.\par
+
+One of the main objectives of natural language processing is segmentation. Humans, as well as computers, need to segment continuous input into linguistic units such as words and morphemes to be able to interpret and understand them. Many natural language applications dealing with large vocabularies, such as speech recognition, are concerned with devising effective methods for identifying morphemes and learning morpheme boundaries. These applications are aided by linguistic information. In many cases, they require pre-determined rules and extensive human input. These methods are generally slow and expensive.\par
+Thus, algorithms have been devised in order to perform word segmentation automatically. Given no prior knowledge of the language's linguistic rules, these algorithms attempt to segment words into their stems and affixes without human involvement. They rely primarily on statistical properties and patterns in the language in order to identify morpheme boundaries. The goal is to produce a method that, when given a word, can accurately segment it into its morphemes.\par
+This paper analyzes commonly used statistical measures and strategies for segmentation: successor variety, predecessor variety, complete word cutoffs, and entropy. In Section 2, we describe our implementation of the algorithms introduced by Hafer and Weiss. In Section 3, we present our results and discuss our algorithms' performances. In Section 4, we propose and implement new and improved algorithms based on our findings. 
+
+\section{Methods/Implementation}
+\subsection{Segmentation Strategies}
+The algorithms constructed for unsupervised word segmentation were inspired by the work of Margaret A. Hafer and Stephen F. Weiss. Of the 15 algorithms proposed in their paper \textit{Word Segmentation by Letter Successor Varieties} we began our work by implementing the first 13. These algorithms can be best understood as variations of four basic segmentation strategies that were introduced by Zellig Harris and further explored by Hafer and Weiss. These strategies are as follows:
+%\cite{harris1967-morpheme}
+
+\begin{enumerate}
+  \item Cutoff. This is the first segmentation method proposed by Hafer and Weiss and one of the simplest. To make this method more clear, let us first consider how cutoffs might be used to segment a word using the successor variety counts and predecessor variety counts. Our use of succesor variety counts and predecessor variety counts for segmentation is consistent with the same approach introduced by Harris Zellig, who used this methodology with phonemes to separate words into their respective morphemes \cite{harris1955-phoneme}.  To explain our methodology, we use the word `hyberbolical' as an example. \par
+
+\hfill \hfill 9 \hfill 15 \hfill 9 \hfill 4 \hfill 20 \hfill 2 \hfill 2 \hfill 4 \hfill 3 \hfill 1 \hfill 1 \hfill 1 \hfill \par
+\hfill H \hfill Y \hfill P \hfill E \hfill R \hfill B \hfill O \hfill L \hfill I \hfill C \hfill A \hfill L \hfill \hfill
+
+The number above each word represents the successor variety count for that prefix, that is, the number of different letter types that can follow the exact set of letters preceding. Consider a cutoff, $K$, of 10. Segmentations are made after each prefix with a successor variety count that is greater than or equal to the cutoff. Therefore, for our word `hyperbolical', the resulting segments of the cutoff method will be `hy', `per', `bolical'. \par
+
+The thinking behind the cutoff method is simple. A high successor variety count following a given letter suggests that the preceding prefix is most likely followed by a large variety of words. The cutoff method works on the assumption that prefixes with a high variety of following words will likely be able to stand alone as linguistically meaningful units. Consequently, this method segments words where the successor variety count is high (above a certain cutoff). This cutoff value must be chosen carefully, as a cutoff value that is too high will result in too few segmentations and a cutoff value that is too low will result in too many. \par
+
+The same method can be applied to predecessor variety counts. When applied to predecessor variety counts, the cutoff method makes segmentations before suffixes with a predecessor variety count that is equal to or greater than the cutoff. Again, we show the segmentations for the word `hyperbolical', but this time our segmentations are based on the predecessor variety count.
+
+\hfill 0 \hfill \hfill 1 \hfill \hfill 1 \hfill \hfill 1 \hfill \hfill 1 \hfill \hfill 3 \hfill \hfill 4 \hfill \hfill 8 \hfill 19 \hfill 12 \hfill 25 \hfill 13 \hfill \hfill \par
+\hfill \hfill H \hfill Y \hfill P \hfill E \hfill R \hfill B \hfill O \hfill L \hfill I \hfill C \hfill A \hfill L \hfill \par
+ 
+Using a segmentation cutoff value of 15, the word `hyperbolical' would be segmented to `hyperbol', `ic', `al'. \par
+
+\item Peaks and Plateaus. Using this segmentation method, cuts are made after a prefix if the successor count for the prefix forms a local `peak' or sits on a `plateau'. If we use \(S\alpha_{i}\) to represent the first $i$ letters of a word, then this method will segment words when the following condition is met: \(S\alpha_{i} \geq S\alpha_{i-1}\) and \(S\alpha_{i} \geq S\alpha_{i+1}\) \cite{hafer1974-word}.\par
+
+Unlike the first segmentation strategy, this strategy does not require a cutoff value, which could potentially bias our results. Additionally, it also allows us to make cuts at the ends of words where successor counts are very low. These are both significant differences from the cutoff approach. Nevertheless, the guiding principles behind this method are similar to that of the cutoff approach. Just like cutoff approach, this strategy is based on the assumption that prefixes with high successor variety counts can stand alone as linguistically meaningful units.
+
+The peak and plateau strategy identifies prefixes of length $i$ with higher successor variety counts by comparing them to the successor variety counts of the prefixes with length $i-1$ and $i+1$. The result of this strategy is that it captures some of the more subtle morpheme segmentations than the cutoff method would. Consider, once again, our `hyperbolical' example. Any cutoff greater than 4 would not capture the segmentation between the `L' and the `I'. However, the peak and plateau method does captures this segmentation.
+
+\item Complete word. This strategy is used in two ways. We can either segment a word at all positions where the prefix is a complete word, or at all positions where its suffix is a complete word. This method works on the assumption that complete words, when found within a larger word, capture individual linguistically meaningful units.
+
+\item Entropy. Unlike the previously discuss methods which rely soley on the variety of letters, entropy is sensitive to both the variety and the distribution of letters.\par
+
+Entropy, \(H\), for a system is defined as: 
+$$H = \sum\limits_{i=1}^n - p_{i} \log_2 p_{i}$$
+where \( n \) is the number of events, each with the probability \(p_{i}\), where \(1 \leq i \leq n\) \cite{hafer1974-word}. Entropy is highest when all events in the system are equalprobable. It decreases when the distribution of probabilities becomes skewed.\par
+
+For segmentation, entropy is measured as:
+$$H\alpha_{i} = \sum\limits_{j=1}^{26} - \frac{|D\alpha_{ij}|}{|D\alpha_{i}|} \times \log_2\frac{|D\alpha_{ij}|}{|D\alpha_{i}|}$$
+
+where \(|D\alpha_{i}|\) is the number of words in the corpus that match an \(i\) letter prefix of the test word \(\alpha\) \cite{hafer1974-word}. \(|D \alpha_{ij}|\) is the size of the subset of \(D\alpha\) in which the \(i + \)1st letter is the \(j\)th letter of the alphabet \cite{hafer1974-word}. Thus, the probability that the successor letter of \(\alpha_{i}\) is the \(j\)th letter of the alphabet is \(\frac{|D\alpha_{ij}|}{|D\alpha_{i}|}\) \cite{hafer1974-word}. \par
+
+Entropy measurements allow us to overcome one of the major shortcomings of successor and predecessor variety counts. The major shortcoming is explained through a hypothetical example. Consider a word, $W$, which has a successor variety count of 15 after the $i$th. We find, however, that this successor variety count is deceptively high. Of the 15 different successor types, 14 of them each correspond to only 1 distinct entry in our word set. The 15th letter type, on the other hand, corresponds to 20 distinct entries in our word set. The 14 successor types that correspond to only 1 word in our word set are likely due to abnormal cases, and consequently, they inaccurately inflate the successor variety score. Entropy measurements serve as a means by which we can control for this variation. Instances such as the hypothetical case mentioned before will correspond with a low successor entropy score in contrast to words with a more even distribution of variety types.
+
+We can use successor and predecessor entropy scores in the same manner by which we use successor and predecessor variety counts. Entropy scores just take more information into account in order to make more accurate segmentations.
+\end{enumerate}
+
+\subsection{Dataset Construction}
+In order to analyze our data, we used a trie. This trie, which is an ordered tree data structure, stores each of our words by chatacter. At the highest level of our trie, we store all of the characters that are the first letter of a word. These characters are our keys. Each key has, as its value, a dictionary for each successor character. This is repeated for all levels of the trie, until all words in our word set are contained within the trie. We implemented these dictionaries using lists of lists in order to conserve space.
+
+For a more thorough analysis, we created four different tries. Each of these tries was built using a unique word set. These word sets were the Brown corpus, the Reuters news corpus, a Scrabble dictionary, and a set of unigrams from Google. \par
+
+\subsection{Determining Segmentation Standards}
+We used two different morpheme segmentation standards to analyze the accuracy of our segmentations. The first of these was based on a list of 1000 words and their respective segmentations, which were determined as a part of the 2010 Morpho Challenge workshop. This is the main standard that we used to analyze our segmentation algorithms. \par
+
+We recognize, however, that there is no perfect segmentation standard. The division of morphemes within a word can be fairly ambiguous in some cases. Conseqeuntly, all morpheme segmentation standards must be reached by some educated consesus that a group of people reach. The standard itself, therefore, relies heavily on the opinions of the people involved in its construction. \par
+
+Consequently, we propose our own morpheme segmentation standard, so that by two measures we might analyze our experiments. We used 100 words randomly selected from the 2010 Morpho Challenge list, and segmented them. When deciding upon our morpheme boundaries, we were interested in segmenting them by prioritizing inflectional morphemes first, then bound morphemes, then free morphemes, and lastly derivational morphemes. \par
+
+
+\begin{enumerate}
+\item Inflectional morphemes. These modify a word's tense, number, aspect and so on without deriving a new word or a word in a new grammatical category. For example, adding the inflectional morpheme `-s' to the root `dog' forms `dogs' and `-ed' to `call' forms `called'. 
+\item Bound morphemes. These appear only as part of words. They occur always in conjuction with a root and sometimes with other bound morphemes. Most bound morphemes in English are prefixes and suffixes. For example, suffixes such as `-tion', `-ation', `-ing' appear only accompanied by other morphemes to form a word. 
+\item Free morphemes. Unlike inflectional and bound morphemes, they can function independently as words like `dog' and `call.' They can also function with other free morphmenes to form compound words such as `doghouse' and `catcall'.
+\item Derivational morphemes. When combined with a root, they modify a word's semantic meaning or part of speech. For example, in the word `unhappy', the prefix `un-' inverts the meaning of the root word `happy'. In the word `happiness', the root word `happy' is an adjective but the addition of the bound morpheme `-ness' changes the word to a noun.
+\end{enumerate}
+
+Of the 100 words we segmented, the majority of our segmentations matched those given in the Morpho Challenge standard. The conflicts we encountered often involved different interpretations of affixes. Our standard was developed without any consideration of the specific segmentation experiments we completed.
+
+\subsection{Algorithm Evaluation}
+We evaluated the performance of each unsupervised algorithm by comparing our results to segmentations given by the Morpho Challenge standard. We quantified our results by using precision, recall, and F-measure. \par
+
+Precision is calculated by taking the number of true positives and dividing it by the sum of true positives and false positives. In other words, precision is the number of correct cuts made divided by the number of total cuts made \cite{hafer1974-word}.
+
+Recall is calculated by taking the number of true positives and dividing it by the sum of true positives and false negatives. In other words, recall is the number of correct cuts made divided by the total number of true boundaries (as determined by our standard) \cite{hafer1974-word}.
+
+Additionally, we solve for F-measure, which is the harmonic mean of precision and recall. 
+$$F = 2\times \frac{precision\times recall}{precision + recall}$$
+\section{Results and Analysis}
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+ &  & \multicolumn{3}{l|}{\textit{Morpho Standard}} & \multicolumn{3}{l|}{\textit{Our Standard}} \\ \cline{3-8} 
+\textbf{Exp.} & \textbf{Algorithm} & \textbf{P \%} & \textbf{R \%} & \textbf{F} & \textbf{P \%} & \textbf{R \%} & \textbf{F} \\ \hline
+1 & Successor \textgreater= cutoff & 17.2 & 76.5 & 28.0 & 21.5 & 75.6 & 33.5 \\
+2 & Successor \textgreater= cutoff and & \textbf{43.4} & 46.8 & 45.0 & 41.9 & 34.6 & 37.9 \\
+ & predecessor \textgreater= cutoff &  &  &  &  &  &  \\
+3 & Successor + predecessor & 36.0 & 55.5 & 43.7 & 40.6 & 50.0 & 44.8 \\
+ & \textgreater= cutoff &  &  &  &  &  &  \\
+4 & Prefix is complete word & 40.2 & 77.9 & 53.0 & 46.4 & 69.2 & 55.5 \\
+5 & Suffix is complete word & 29.3 & 40.6 & 34.0 & 41.5 & 43.6 & 42.5 \\
+6 & Prefix is complete word or & 32.4 & 94.8 & 48.3 & 36.2 & 86.5 & 51.0 \\
+ & predecessor \textgreater= cutoff &  &  &  &  &  &  \\
+7 & Successor at peak/plateau & 23.6 & 55.6 & 33.2 & 27.3 & 53.8 & 36.2 \\
+8 & Successor and predecessor & 31.7 & 40.0 & 35.4 & 32.3 & 32.1 & 32.2 \\
+ & at peak/plateau &  &  &  &  &  &  \\
+9 & Successor + predecessor & 27.6 & 65.3 & 38.7 & 30.9 & 60.3 & 40.9 \\
+ & at peak/plateau &  &  &  &  &  &  \\
+10 & Prefix is complete word or & 24.9 & \textbf{96.9} & 38.7 & 29.2 & \textbf{91.0} & 44.2 \\
+ & predecessor at peak/plateau &  &  &  &  &  &  \\
+11 & Hybrid of exp. 2 and 6 & 39.2 & 61.5 & 47.9 & 43.5 & 53.2 & 47.8 \\
+12 & Prefix is complete word or & 41.2 & 84.7 & \textbf{55.4} & \textbf{49.0} & 77.6 & \textbf{60.0} \\
+ & predecessor entropy at peak/plateau &  &  &  &  &  &  \\
+13 & Successor + predecessor entropies & 27.6 & 63.1 & 38.4 & 33.8 & 61.5 & 43.6 \\
+ & \textgreater= cutoff &  &  &  &  &  &  \\ \hline
+\end{tabular}
+\caption{\label{tab:widgets}Experimental results for our implementation of Hafer and Weiss algorithms for morpheme segmentations. Results are evaluated against the 2010 Morpho Challenge standard and our own standard. Precision (P), recall (R) and F-measure (F) for each algorithm are displayed. In bold are the best results for each measure.}
+\end{table*}
+
+Prior to analyzing our algorithm we determined which word set was best used to build our trie. We built 4 different tries, each with a unique word set. These 4 word sets were the Brown corpus, the Reuters news corpus, a Scrabble dictionary, and a set of unigrams from Google. For the tries corresponding to each of these word sets, we measured their precision, recall, and F-measure on 13 experiments proposed by Hafer and Weiss. Experiments run on the Brown corpus generally had the highest precisions, and the experiments run on the Google dictionary had the highest recalls. However, despite the advantages of running experiments on those two word sets, we found that experiments run on the Scrabble word set produced the highest F-measure. Consequently, we measured the accuracy of our segmentation methods using the Scrabble word set to develope our trie.
+
+Results for these 13 experiments are shown in Table 1 and discussed in detail below. For the sake of brevity, all precision, recall, and F-measure values mentioned in the description refer to how our segmenter did relative to the Morpho Challenge standard. Trends found when we used our own standard are consistent with those found when we used the Morpho Challenge standard.
+
+\begin{enumerate}
+%1
+\item Successor count reaches cutoff. This expirement was run first on our training set of 500 words. Using the training set, we varied the cutoff value, $K$, from 1 to 28. This range of cutoff values was used to account for all 26 letters in our trie, along with the symbols ` - ' and ` ' '. In our training set, a cutoff of 1 yielded yeilded higher precision and recall values than a majority of the other cutoffs. As the cutoff value was increased, the recall generally decreased, as did the precision. We use a cutoff value of 2 against our testing set of 500 words to report our results. A cutoff value of 2 yielded the highest precision and high recall when used to segment the training set.
+
+  Although low cutoffs yielded the best percentages, it was evident that the high recall values were due to the fact that an excessive amount of cuts were being made for each word. The (relatively) higher precision values were also likely due to the excess of cuts. Precision and recall only decreased with an increase in $K$. 
+
+The major shortcoming of this strategy is that successory variety counts are typically much higher at the beginning of words, and they drop to low values at the end of words. When using the cutoff method, this typically results in excessive cuts in the beginning of a word and too few at the end. It does not effectively segment words into their morphemes.
+
+\item Successor count reaches cutoff and predecessor count reaches cutoff. This experiment was also run first on our training set. Using the training set, we varied the sucessor cutoff, $K_{1}$, and the predecessor cutoff, $K_{2}$, from 1 to 28, independently. In our training set, a variety of $K_{1}$ and $K_{2}$ values yielded useful segmentations. We use a $K_{1}$ of 2 and a $K_{2}$ of 16 against our testing set to report our results. These cutoff values were chosen because they resulted in the highest F-measure.
+
+The cutoff values used for our solution made segmentations at positions with high predecessor counts and moderately high successor counts. A lot of segmentations were made at the end of the words as a result. This proved to be a decently effective strategy because smaller morphemes are generally found at the end of words. However, it often over-segmented the ends of words and missed relavant segmentations at the beginning of words. This shortcoming could be accounted for by raising $K_{1}$ and lowereing $K_{2}$, but this adjustment causes the opposite problem--too many cuts are made at the beginning of the word and not enough are made at the end.
+
+The cutoffs we used provide an effective balance of precision and recall in word segmentation, but could be improved upon by using different techniques. This method showed a definite improvement over the previous method used in experiment 1.
+
+\item Sum of successor count and predecessor count reaches cutoff. This experiment was run first on our training set. Using the training set, we varied the cutoff from 1 to 40. We found that increasing the cutoff resulted in lower recall values. This is to be expected, as less segmentations are made when the cutoff value is increased. On the other hand, we found that increasing the cutoff value resulted in higher precision values. This also met our expectations. We expected the cuts to become increasingly accurate as we became increasingly selective in choosing our segmentations. We used a cutoff of 25 against our testing set to report our results. This cutoff value was chosen because it resulted in the highest F-measure.
+
+The cutoff value used in this experiment generally produced too many segementations, especially in shorter words. However, for longer words this method occassionally made little to no segmentations. This trend arises because successor and predecessor counts are generally highest at the beginning and ends of words, respectively. When we segment shorter words, it is more common for there to be overlap in high successor counts and high predecessor counts. For longer words, in some cases there is little to no overlap in these counts, and as a result our sums rarely exceed the cutoff value.
+
+Higher cutoff values can yield over 35\% precision, however, recall decreases substansially at these high cutoffs. Overall, the method appears to be less accurate in segmenting words than the method used in experiment 2, even when using our emperically confirmed cutoff value of 25.
+
+\item Prefix is complete word. When we segment after encoutering a complete word we find that we often have too many segmentations, but only a few too many. We also find that many of the correct segmentations are typically captured by our method. However, there are two key issues that we encounter when using this segmentation strategy. The first is that a single morpheme will often consist of multiple full words. Consider the word `dressings'. The first morpheme in this word is `dressing', according to the Morpho Challenge standard. However, the method we are using breaks this morpheme down into both `dress' and `ing', because both `dress' and `dressing' are complete words. The second issue that we encounter is that stems are often altered by their affixes. Consider the present participle of the word `hug'. This word, `hugging', has a third `g'. Its morphemes, therefore, are `hugg' and `ing'. However,  our segmentation method recognizes the word `hug' and breaks this word down into `hug' and `ging' instead.
+
+Compared to the previous methods, this is the best segmentation method thus far. Although its precision is slightly lower than the precision in experiment 2, the recall is much higher. This is a relatively effective segmentation method.
+
+\item Suffix is complete word. Relative to experiment 4 (Prefix is complete word) the number of cuts made is nearly the same. The major shortcoming of this method is that a lot of relavant morphemes are missed. This issue is due simply to the nature of the English language. More often than not, morphemes are added to the end of words to change their meaning or their part of speech. In most cases, these morphemes cannot stand alone as words. Consider the word `claws'. As the plural form of the word `claw', the final morpheme in this word is an `s'. However, `s' is not a word in itself, and it will not be separated by this segmentation method. Instead, the segmentation is made before the `l', and our resulting segments are `c' and `laws', which in no way reflect the actual morphemes of the word `claws'.
+
+Compared to experiment 4 (Prefix is complete word), this method is much less effective. This lack of effectiveness is due primarily to different variations of the afforementioned problem. Both precision and recall are lower.
+
+\item Prefix is complete word or predecessor count reaches cutoff. This experiment was run first on our training set in order to determne the most effective cutoff. We varied the sucessor cutoff from 1 to 28. Higher cutoffs result in an increase in precision and a decrease in recall. At the highest cutoffs, precision and recall values converge on the same precision and recall values we get in experiment 4 (Prefix is complete word), as we would expect. We use a cutoff of 17 against our testing set to report our results because it yields a high F-measure compared to other cutoffs. Compared to experiment 4, this results in a significantly lower precision (-7.8\%) and a significantly higher recall (+16.9\% difference). 
+
+  As in many of our other cases, this method produces an excessive number of segmentations. High predecessor counts cause there to be an excess of segmentations at the end of the word. Segmentations where the prefix is a complete word vause there to be incorrect segmentations too (described in experiment 4). The incorrect segmentations made be each of these techniques are unique, and therefore, by combining the two methods our precision decreases. However, our recall increases due to the large number of cuts we are making.
+
+Since this method results in an large excess of cuts, we suggest that it is inferior to experiment 4, in which we only segment prefixes in places where they are complete words. Unless the user is willing to sacrifice precision for recall, the method used in experiment 4 is preffered over this method. 
+
+\item Successor count is at peak or plateau. Successor counts reach both peaks and plateaus throughout the word, capturing many of the correct cuts. However, there are two major shortcomings of this method. The first is that this method almost invariably results in a cut after the first 1 or 2 characters of a word. This is an issue because more often than not, words start with morphemes that are longer than 1 or 2 characters. Accordingly, there is typically at least one incorrect segmentation in every segment. Another major shortcoming of this method is that plateaus are relatively common towards the end of words, often resulting in segmentations in cases when they should not be there. For example, in the word 'baccalaureate' 7 of the last 8 successor counts are 1. Accordingly, there are many cuts in this word despite the few morphemes it contains.
+
+The precision and recall values are low compared to most of the previously mentioned methods. The use of the peak or plateu method is not especially effective for segmentation.
+
+\item Successor and predecessor is at peak or plateau. This method seeks to counteract some of the shortcomings of the previously mentioned segmentation method. In some respects, it is successful. For example, we find that fewer words are segmented within the first 1 or 2 characters. This is an improvement over the previous method. Furthermore, we find that the endings of words are not as heavily oversegmented. However these changes only moderately improve precision at the expense of a large drop in recall. In fact, this method has one of the smallest recall value at 40\%.
+
+The precision value for this method is somewhat low relative to the precision values we get for our other segmentation methods. Since the recall value is also very low, the advantages of this method are minimal. While this may be preferred over the previous method, it is still not nearly as effective as some of the other segmentation methods.
+
+\item Sum of counts at peak or plateau. This method segments words when the sum of successor and predecessor counts reaches a peak or plateau. This results in an increase in cuts relative to the method used in experiment 7 (Successor count is at peak or plateau). This method shows some improvements. Recall improves by 4.8\% and precision improves by 9.7\%. These improvements are likely due in part to the smoothing out of peaks that led to false segmentations, but primarily to the creation of new peaks where segmentations were supposed to occur, but weren't accounted for in experiment 7.
+
+  As in our last variation of the peak or plateau segmentation method, this too is an improvement. Even though this does not result in as much of an increase in precision as the previous method does, the advantage of this segmentation method is that it produces a relatively high recall value as well. While this again is an improvement, this method is not preffered over some of the other strategies, such as the method in experiment 4 (Prefix is complete word).
+
+\item Successor is complete word or predecessor is at peak or plateau. The method in experiment 4 (Prefix is complete word) has proven effective in creating accurate segmentations. By also including cuts where the predecessor is at a peak or plateau we thought that we might be able to segment at common suffixes as suggested by Hafer and Weiss. However, the cuts made in this experiment resulted in many incorrect changes to our segmentation. Relative to the method in experiment 4 (Prefix is complete word) alone, this method causes a significant increase in recall and decrease in precision. This occurs because many of the words are over-segmented. In some cases, words are segmented between every single letter.
+
+  Even though the recall for this method is high, the actual segmentations tell us very little about the morphemes of the word. Accordingly, this is not a very effective strategy. We would prefer to use the method in experiment 4 (Prefix is complete word) alone.
+
+\item Hybrid of experiments 2 and 6. This method uses a hybrid of successor and predecessor counts to determine the best segments. Cuts are made in positions where a cut is highly indicated by the sucessor information and moderatley indicated by the predecessor information, or where a cut is highly indicated by the predecessor information and moderately indicated by the sucessor information \cite{hafer1974-word}. We implement this experiment using the same cutoffs proposed by Hafer and Weiss. They are as follows. Cuts are made where the prefix is a complete word and the predecessor count is at least 5, or where the predecessor count is at least 17 and the successor count is at least 2.
+
+The combination of these methods seems to result in accurate segmentations for some words. For example, we find that the word `drips' is accurately segmented into `drip' and `s', and `abusing' is accuately segemented into `ab', `us', and `ing'. However, there are some major shortcomings. One of the major issues is shorter words. Shorter words generally have moderate successor counts at all positions, causing them to be cut excessively. Nevertheless, this method is rather effective. 
+
+The precision for this method is comparable to that of the method in experiment 4 (Prefix is complete word). Additionally, the recall is moderately high. While the method in experiment 4 is definitely more effective on its own, the segmentations provided by this method are still rather accurate.
+
+\item Successor is complete word or predecessor entropy reaches cutoff. This experiment was run first on our training set in order to determine the most effective cutoff. We first varied the predecessor entropy cutoff between 1 and 10, incrementing by 0.5 each time. After finding that entropy values did not exceed 5 and that the best results were found using cutoffs between 3 and 4, we did another run on the training set with cutoffs from 3 to 4, incrementing by 0.1 each time. Using this procedure it was clear that the best results were found when we used a cutoff of 3.9.
+
+This extension of experiment 4 (Prefix is complete word) adds a few cutoffs. When using high predecessor entropies as an indication of where to make additional cuts, we find that we make more segmentations with greater precision. We suspect that this is because the high predecessor entropy allows us to make cuts at common suffixes that we otherwise might not identify.  
+
+Relative to the method in experiment 4 (Prefix is complete word), this extension is an improvement. It results in greater precision, but only slightly, along with significantly higher recall. This is our most effective segmentation method of the 13 methods motivated by Hafer and Weiss.
+
+\item Sum of entropies reaches cutoff. This segmentation method is equivalent to the method in experiment 3 (Sum of successor and predecessor reached cutoff), except that it uses entropy values rather than variety counts. It was run first on our training set in order to determine the most effective cutoff. We initially varied the predecessor entropy cutoff between 1 and 10, incrementing by 0.5 each time. The best results were found using cutoffs between 2.5 and 4.5. Therefore, we did another run on the training set with cutoffs from 2.5 to 4.5, incrementing by 0.1 each time. Using this procedure it was clear that the best results were found when we used a cutoff of 3.8. This is different from the cutoff proposed by Hafer and Weiss, which was 4.
+
+Much like in experiment 3, we found that some words were cut excessively whereas others were left either uncut or with very few cuts. The precision and recall values were not much different from those found in experiment 3. Precision was slightly lower, whereas recall was slightly higher.
+
+Based on the precision and recall measurements of this experiment, we concluded that this method was rather ineffective. We most likely would use the sum of successor and predecessor variety counts (experiment 3) rather than the sum of the entropy counts. The results of this segmentation were mediocre. 
+\end{enumerate}
+
+\section{Extensions}
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+ &  & \multicolumn{3}{l|}{\textit{Morpho Standard}} & \multicolumn{3}{l|}{\textit{Our Standard}} \\ \cline{3-8} 
+\textbf{Exp.} & \textbf{Algorithm} & \textbf{P \%} & \textbf{R \%} & \textbf{F} & \textbf{P \%} & \textbf{R \%} & \textbf{F} \\ \hline
+1 & Complete word improved 1 & 52.1 & 67.3 & 58.7 & 62.7 & 61.5 & 62.1 \\
+2 & Complete word improved 1 or & 52.6 & 74.7 & 61.7 & 65.5 & 70.5 & 67.9 \\
+ & predecessor entropy at peak/plateau &  &  &  &  &  &  \\
+3 & Complete word improved 2 & 54.4 & 67.3 & 60.2 & 64.9 & 61.5 & 63.2 \\
+4 & Complete word improved 2 or & 54.6 & 74.7 & 63.1 & 66.3 & 70.5 & 68.3 \\
+ & predecessor entropy at peak/plateau &  &  &  &  &  &  \\
+5 & Exp. 4 with hypen extension & \textbf{55.4} & \textbf{77.9} & \textbf{64.7} & \textbf{67.6} & \textbf{75.0} & \textbf{71.1} \\ \hline
+\end{tabular}
+\caption{\label{tab:widgets}Experimental results for our improved algorithms. Results are evaluated against the 2010 Morpho Challenge standard and our standard. Precision (P), recall (R), and F-measure (F) for each algorithm are displayed. In bold are the best results for each measure.}
+\end{table*}
+
+\subsection{Algorithmic Improvements}
+
+Analyzing our implementations of the algorithms proposed in Hafer and Weiss, we found that our most effective segmentation methods cut words at the positions where there were prefixes the could stand alone as complete words. The four most effective methods all integrated this strategy. They were experiment 4 (F = 53.0), 6 (F = 48.3), 11 (F = 47.9), and 12 (F = 55.4).
+
+\begin{enumerate}
+  \item In order to improve upon these methods proposed by Hafer and Weiss, we first focused on improving the method from experiment 4 (Prefix is complete word). Our strategy was rather simple. We recognized that the segmentation method from experiment 4 occassionally made excessive cuts, which would result in single character segments. When we analyzed the correct segmentations for both our own standard and the standard provided to us by the 2010 Morphology Challenge, we recognized that there were only a handful of morphemes that were only a character long. In fact, we found that the only common one-letter morphemes were found at the end of words. For example, the suffix `-s'. 
+
+Therefore, we chose to ignore all one-character segments, except for those found at the very end of words. Whenever we encountered a segment of length one, we joined it with its preceeding segment. We did this because we found that most of the incorrect segmentations were happening in the middle of the first morpheme. In most words, the first morpheme is fairly long. By joining 1-character segments to their preceeding segments, we often did away with the inaccurate segmentations that were happening within the words first morpheme. 
+
+We use our segmentation of the word `poofs' as an example. The "Prefix is complete word" segmentation strategy returned a segmentation of `po', `o', `f', `s'. Our revised version of this method changed it to `poof' and `s', which is consistent with the segmentations provided by the Morpho Challenge standard and our own standard. This was the first of our 5 improvements to the method suggested by Hafer and Weiss. We called this method "Complete word improved 1."
+
+\item Our second improvement was an extension of experiment 12, because experiment 12 was the most effective segmentation method proposed by Hafer and Weiss. Our improvement was identical to experiment 12, except that we used our "Complete word improved 1" method rather than the "Prefix is complete word" method that Hafer and Weiss used. 
+
+\item Our third improvement was a second variation of "Prefix is complete word" For this method we only allowed 1-character segmentations at the end of the word when the final character was either an `s' or `y'. We allowed for these segmentations because `s' is a common morpheme used for plural words and `y' is a common morpheme used in adjectives. For all other cases we did not allow for 1 character segments. 
+  
+We use our segmentation of 'goo' as an example in order to show the advantages of this new method over "Complete word improved 1". Analyzing our results, we found that our first extension incorrectly segments `goo' into `go' and `o', because it allows for all 1 character morphemes at the end of a word. Our new variation of this method only allows for 1 character morphemes when there is an `s' or a `y', and therefore, it correctly leaves `goo' as `goo' after the segmentation. We call this method "Complete word improved 2."
+
+\item Our fourth improvement was a second extension of experiment 12. This time we used the "complete word improved 2" method rather than the "Prefix is complete word" method that Hafer and Weiss proposed.
+
+\item Our fifth and final improvement was based on hyphenations. We recognized that hyphens were almost always individual morphemes. Accordingly, whenever we found a hyphen in a word, we made it into its own morpheme. We used this improvement method on the most accurate of the 4 previously mentioned extensions, which was extension 4. The results of this hyphen improvement, along with the 4 previously mentioned extensions, are discussed below.
+\end{enumerate}
+\subsection{Results}
+We only discuss the experimental results for the Morpho Challenge standard. However, the trends found when we used the Morpho Challenge standard are consistent with those found when we used our Gold standard. Our algorithms actually perform better when used with our own standard.
+
+Our first extension, "Complete word improved 1" had a precision that was signigicantly more precise (+11.9\%) than the "Prefix is complete word" method proposed by Hafer and Weiss. Even though the increase in precision came at the expense of recall, the F-value of our method was greater as well (+5.7). This F value was higher than any of the F values for the algorithms proposed by Hafer and Wiess.
+
+Our second extension slightly improved upon the precision values and significantly improved upon recall values. It resulted in an F measure that increased by 3 relative to our first extension.
+
+Our third extension, "Complete word improved 2," had a precision that was slightly greater than that of "Complete word improved 1" although its recall was unchanged. These precision and recall values have the afforementioned changes (or lack thereof) because the new extension reduces the number of inaccurate segmentations between the last two characters of a word. Overall, this resulted in a +1.5 improvement in F measure over the first extension.
+
+Our fourth extension was an improvement on "Complete word 1 improved or predecessor entropy at peak/plateau." Again, the precision was slightly greater, but the recall was unchanged. This can be explained by the same trend that explained the improvements in our third extension. Overall, this resulted in a +1.4 difference in F-measure relative to the second extension.
+
+Our last extension improved upon the fourth extension. Because we had identified our fourth extension as our best segmentation method, we felt that this hyphenation improvement need only be applied to it. The hyphenation extension improved both recall and precision. This had the highest precision (55.4\%) and F-measure (64.7) of all segmentation methods implemented and analyzed in this paper.
+
+\section{Conclusion}
+
+We concluded from our analysis of the thirteen different experiments implemented from Hafer and Weiss that a variety of different segmentation methods allow for adequate approaches to unsupervised morpheme segmentation. Furthermore, we recognized that successor variety counts, predecessor variety counts, and entropy measurements allow for useful statistical methods by which we can determine the best positions to segment a word. Using these measurements in conjunction with various segmentation strategies--cutoffs, peaks and plateaus, and full word recognition--we ran a variety of tests. We found that of the methods proposed by Hafer and Weiss, those involving full word recognition (specifically the methods that made cuts when a prefix could stand as complete word) resulted in the highest precisions and F-measures. However, we also found that even the most effective methods proposed by Hafer and Weiss resulted in trends of mis-segmentation, and we concluded that there was still room for considerable improvement. \par
+
+We chose to further improve upon the algorithms proposed by Hafer and Weiss by modifying their most successful segmentation strategies. Our primary change was an improvement on their method that made cuts at all positions where the prefixes could stand alone as complete words. We altered this method so that 1-character segmentations were joined to their preceding segment, with the exception of specific morphemes at the end of the words, and by doing so our algorithm achieved remarkable gains. Furthermore, to add to efficacy of this extension, we adjusted it so that hyphens were treated as individual morphemes as well. These extensions were based off of basic trends that we had recognized in the English language and in the shortcomings of Hafer and Weiss algorithms. Our final result segmented words into their respective morphemes with 55.4\% precision, 77.9\% recall, and an F-measure of 64.7 against the Morpho Challenge standard. This F-measure was 9.3 higher than the best method proposed by Hafer and Weiss. \par
+
+Even though our extensions significantly improved upon the work of Hafer and Weiss, we believe that there is still significant room for improvement. A precision of 55.4\% is insufficient if we are aiming to develop a completely reliable segmenter. As shown through our own extensions, there are common patterns that can be identified, and as we continue to develop methods by which we can more precisely recognize these linguistic patterns, we are likely to further improve upon our ability to segment words into their respective morphemes. \par
+
+\bibliographystyle{cs65f14}
+\bibliography{cs65f14}
+
+\end{document}

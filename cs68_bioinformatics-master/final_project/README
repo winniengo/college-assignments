@@ -1,0 +1,30 @@
+CS 68 Final Project READ ME
+Winnie Ngo and Eric Oh
+
+To run code use:
+        
+        python3 classifiers.py
+
+Currently program is set to output accuracies of all supervised learning
+algorithms trained and tested using n-folds cross validaion on the leukemia 
+patient gene expression dataset found in datasets/. 
+
+Additions:
+- Filename can be changed to test other datasets. 
+- Uncommenting the first line in main() allows user to input value for n for
+n-folds cross validation. Comment the following line which sets n = 7, the
+optimal value for testing our current dataset.
+- Changing to following line so that display and plot are True displays
+the confusion matrix per fold per classifier and plots the resulting 
+hyperplane(s) of the SVMs using the two most weighted features. 
+
+Protein Hot Spot Project:
+The proteinHotSpotProject/ contains the files from our original project.
+You will find the raw pdb files and corresponding alanine files. FADE,
+MdEnergy and VADAR contains file generated from using these respective
+softwares. MdEnergy contains information on the hydrogen bond energies
+of each protein. FADE and VADAR would've yield addition energy information
+if they had workd. They are currently installed on caper in the 
+/local/cs68wngo1 directory. Additional software such as CHARMM19 and VMD
+will also be found in that directory
+

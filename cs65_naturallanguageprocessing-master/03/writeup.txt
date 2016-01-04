@@ -1,0 +1,279 @@
+Question1.
+
+Tokens = 100554
+Types = 14394
+
+Question2.
+
+Educated Guess - Most Common Words
+(1) the
+(2) I
+(3) it
+(4) ,
+(5) he
+(6) she
+(7) .
+(8) is
+(9) are
+(10) am
+
+Actual Results - Most Common Words
+(1) 'the'   f = 5580
+(2) ','     f = 5188
+(3) '.'     f = 4030
+(4) 'of'    f = 2849
+(5) 'and'   f = 2146
+(6) 'to'    f = 2116
+(7) 'a'     f = 1993
+(8) 'in'    f = 1893
+(9) 'for'   f = 943
+(10) 'The'  f = 806
+
+This list does not match our original expectations. For us, it was surprising
+to see that pronouns such as 'I', 'he', 'she', and 'it' did not make the top
+10 most common tokens. These are words that we expected to come up frequently,
+especially in the 'news' category. We were also surprised that simple linking
+verbs such as 'is' and 'are' were not among the top 10 most common tokens.
+
+We found instead that prepositions were especially common, such as 'in', 'for',
+'to'. This seems logical, as prepositions are often necessary to describe the
+relationship between words in a sentence. These seem like obvious choices
+in hindsight. Similarly, words like 'and' and 'a' also seem like obvious
+choices. These were words simply did not come to mind when we were making our
+guesses.
+
+Question 3.
+
+Results - Most Common Tags
+(1) 'NN'   f = 15872
+(2) 'IN'   f = 10860
+(3) 'AT'   f = 8967
+(4) 'NP'   f = 7794
+(5) 'NNS'  f = 5505
+(6) ','    f = 5188
+(7) 'JJ'   f = 5143
+(8) '.'    f = 4472
+(9) 'CC'   f = 2718
+(10) 'VBD' f = 2531
+
+Question 4.
+
+Results - Most Common Bigrams
+('of', 'the')  f = 844
+('.', 'The')   f = 659
+('in', 'the')  f = 549
+(',', 'and')   f = 373
+(',', 'the')   f = 364
+
+Results - Most Common Bigrams (no punctuation)
+
+('of', 'the')  f = 844
+('in', 'the')  f = 549
+('to', 'the')  f = 273
+('on', 'the')  f = 239
+('for', 'the') f = 217
+
+We found that once the bigrams with punctuation were removed, all of the most
+common bigrams involved a preposition followed by the word 'the'. We had
+expected that this might occur, because we knew that prepositions and 'the'
+were among the most common unigrams. Furthermore, we knew that these words
+were often paired together because when we use prepositions they are commonly
+followed by the word 'the'.
+
+Question 5.
+
+Types with 1 tag = 92.407%
+Tokens with 1 tag= 74.630%
+
+Types with > 2 tags = 0.535%
+Tokens with > 2 tags = 6.898%
+
+Question 6
+
+Overall we see that the results from the science fiction category are very
+similar to our results from our results from the news category. The only major
+difference is the number of types and tokens, and this difference arises only
+becuase there are less science fiction files than news files. This tells us
+that trends in the most common words, most common bigrams, and most common
+tags are relatively consistent regardless of the category of text we are
+analyzing. Below you will find questions 1 through 5 answered using the
+science fiction category. 
+
+1. Tokens = 14470, Types = 3233
+
+There are less tokens and types in the science fiction category than there are
+in news category, which makes sense because the corpus contains 6 scifi files
+and 44 news files. Notably, the ratio of tokens to types is similar for both
+categories despite the large difference in number of files. There are ~5 tokens
+per type in the science fiction category and ~7 tokens/type in the news
+category.
+
+2. Educated Guess - Most Common Words
+(1) 'the' 
+(2) ','   
+(3) '.'   
+(4) 'of'  
+(5) 'and' 
+(6) 'to'  
+(7) 'a'   
+(8) 'in'  
+(9) 'for' 
+(10) 'The'
+
+Actual Results - Most Common Words
+        (1) ','         f = 791
+        (2) '.'         f = 781
+        (3) 'the'       f = 652
+        (4) 'of'        f = 321
+        (5) 'to'        f = 305
+        (6) 'and'       f = 278
+        (7) "''"        f = 235
+        (8) '``'        f = 235
+        (9) 'a'         f = 222
+        (10) 'was'      f = 198
+
+We chose to use our results from question 2 as our educated guess here because
+we learned from the last two labs that the same most common words are often
+shared across different texts and categories. This proves true in this case
+because of 7 of the 10 words in our guess appear in the actual results.
+Instead of 'in', 'The', and 'for', we found that "''", '``', and 'was' were
+among the most common words.
+
+3. Most Common Tags
+        (1) 'NN'        f = 1653
+        (2) 'IN'        f = 1183
+        (3) '.'         f = 1078
+        (4) 'AT'        f = 1044
+        (5) ','         f = 791
+        (6) 'JJ'        f = 760
+        (7) 'NNS'       f = 561
+        (8) 'VBD'       f = 531
+        (9) 'RB'        f = 522
+        (10) 'VB'       f = 497
+
+The most common tags for files in the science fiction category are nearly
+identical to the most common tags for those in the news category. The only
+difference was that the tags 'NP' and 'CC' among the top 10 most common tags
+for files in the news category, and 'RB' and 'VB' were among the top 10 most
+common tags for files in the science fiction category. The similarities of the
+most common tags between these two categories suggest that different categories
+tend to use words with the same parts of speech with relatively consistent
+frequencies.
+
+
+4. Most Common Bigrams
+('.', '``')     f = 148
+("''", '.')     f = 98
+('of', 'the')   f = 82
+('?', '?')      f = 79
+('.', 'The')    f = 64
+
+Most Common Bigrams (no punctuation)
+('of', 'the')   f = 82
+('in', 'the')   f = 36
+('to', 'the')   f = 29
+('he', 'had')   f = 26
+('and', 'the')  f = 26
+
+We found that once the bigrams with punctuation were removed, the most
+common bigrams typically had 'the' as their second word. We expected this to
+occur based on our results from question 4. The only unexpected result was
+('he', 'had'). However, it seems reasonable that this would be among the most
+common bigrams.
+
+This result is very similar to our result from question 4. The similarities
+in the most common bigrams between these two categories suggest that different
+categories tend to use the same word pairings with relatively consistent
+frequencies.
+
+5. Types with 1 tag = 93.690%
+   Tokens with 1 tag= 81.596%
+   
+   Types with > 2 tags = 0.371%
+   Tokens with > 2 tags = 1.700%
+
+These results are very similar to the ones yielded from analyzing texts from 
+the news category. In both cases, the percentage of types with 1 tag is over
+90% while the percentage of types with > 2 tags is less than 1%. There are 
+slight differences between the percentages concerning tokens. However, in both
+categories, we find that the percentage of tokens with 1 tag is less than the
+percentage of types with 1 tag and the percentage of tokens with 2 or more
+tags is greater than the number of types with 2 tags. 
+
+
+Question 8.
+
+For this first iteration, we decided to assign each previously unseen word  
+the most frequent tag found in the training text, 'NN'. We chose not to
+assign the tag randomly because some tags are more rare and particular to
+a small list of specific types. Such tags would unlikely yield correct answers.
+One other choice we could have considered might have involved using the second,
+or third most frequent tags. However, we suspect that this would be slightly
+less accurate than using the most frequently found tag in the training set.
+
+By using the most frequently found tag in the training set to tag previously
+unseen words, we tagged ~84.8% of the test words correctly. 
+
+Question 9.
+
+We were sastisfied with our accuracy. However, when we looked at the top 10
+most incorrectly tagged tokens, we were surprised to see that largest error 
+occured because our tagger tagged the word 'to' as 'TO' rather than the correct
+tag, 'IN'. We found that in our training courpus that the ratio of 'TO' to 'IN'
+tags associated with the word 'to' was 869:650. Assuming that a similar
+trend is true in the test text, it makes sense that this was a common mistake,
+because the word 'to' will always be tagged as 'TO' by our system. 
+
+The second most common incorrectly tagged word is 'that'. Our tagger 
+incorrectly tags it as 'CS' when its actual tag is 'DT' 44 times. It 
+also mistags 'that' when its actual tag is 'WPS' 38 times. However, once 
+again, when we look at the token's distribution of tags, the miscounts aren't 
+entirely surprising. In the training corpus 'CS' accounts for 369 tokens, 
+'WPS' account for 89 and 'DT' accounts for 80. 'it', 'Congo'
+'Player', 'as', 'home', 'than', and 'libraries' accounted for the remaining
+words in the list of top 10 most commonly mistagged in that order. 
+
+Overall we understand the shortcomings of our system. When a word appears
+frequently and it has multiple tags that are commonly used, it is especially
+difficult to predict tags for that word. Greater accuracy for our tagging
+system would require more information that our histogram currently provides.
+
+Question 10. 
+
+Our tagger accurately tags ~25.3% of the words in the test corpus that 
+don't occur in the training corpus. Interestingly, the majority of
+the top 10 most incorrectly tagged words are different types of nouns,
+ie. words with 'NP', 'NNS', or 'NPS' tags. Our current method method for
+taggin unknown words is to use the most common tag found in the training
+corpus, 'NN'. Unfortunately the 'NN' tag doesn't cover these other noun
+occurances.
+
+We reconstructed our tagger so that instead of assigning the most frequent
+tag from the training text to previously unseen words, it assigns randomly-
+chosen tags from the list ['AT', ',', '.', 'IN', 'CC', 'AT', 'IN','TO', 'IN',
+ 'IN'], which contains the top 10 most common tags found in the training
+corpus. Using this new rubric for handling unknown words, the tagger's 
+performace decreases. It tags only ~6-7% of the unknown words correctly. Like
+before, the majority of the incorrectly tagged words consists of nouns.
+
+This confirms that the decision we used to handle unseen words using the
+most common tag (as we did in Question 8) is more effective than assigning
+tags randomly. 
+
+Question 11. 
+
+We chose to redo Question 9 by replacing the test text with texts from 
+the 'romance' category. We guessed that our tagger would not perform
+as well because our lab from last week showed that the 'romance'
+and 'news' corpus are the least alike among three different categories:
+romance, news, and adventure. Like before, we had our tagger to assign 
+unknown words the most common tag found in the training corpus, 'NN'. 
+We didn't expect to see a significant difference in our results because
+the most common words in one text are usually the most common in another.
+They are also used in the same manner, which would mean that the common
+tags show up with relatively the same frequency. 
+
+Our tagger tagged ~83.0% of words correctly, which is a marginal drop
+in comparison to the 84.8% acheived using a test text of the same category
+as the training text. This matches our prediction. The most common incorrect
+tag once again involved 'to', which was tagged with a 'TO' when it had an 'IN' tag 593 times. 

@@ -1,0 +1,47 @@
+CS 68 Lab 5 - Gene Expression Analysis with classification
+
+Name 1: Winnie Ngo	
+Name 2: Eric Oh	
+
+userId1: wngo1
+userId2: eoh1
+
+----------------------
+
+Answer your experimental evaluation questions here:
+1. Using 5-fold cross-validation, we achieved the best results using either k 
+values of 2 or 3. These returned overall the highest accurary, sensitivity and 
+specificity values. Notably each varied slightly per run but not enough to 
+make a difference when compared to results using other k values. 
+
+2. To pick k we should be using domain knowledge and internal model selection. 
+Using cross-validation, our testing and training models are one and the same.
+Because k-NN is a lazy algorithm, we never actually build a model. 
+
+3. The J48 classifier performs a little worse than our k-NN algorithm. Their
+accuracy rate was 72% while ours was 94% when using k = 3. Using features
+with continuous values, the decision tree algorithm must create and use ranges
+instead of defined features. These ranges could cause longer trees which tend
+to overfit the data. Using k-NN, the influence of the value k is much stronger
+than whether or not the values of the features are continous. Thus its 
+performance is slightly better than that of J48. 
+
+4. It removes redundancy and helps prevent overfitting. It also results in 
+simpler trees which decreases the run-time of the algorithm.
+
+5. gene1833, gene1036, gene2137
+
+----------------------
+Lab Questionnaire - consider the lab as a whole, including both
+programs and the analysis
+
+Approximately, how many hours did you take to complete this lab 
+(provide your answer as a single integer on the line below).
+20
+
+How difficult did you find this lab? 
+(1-5, with 5 being very difficult and 1 being very easy)
+2.5
+
+Describe the biggest challenge you faced on this lab:
+Q2 of the experimental evaluation
